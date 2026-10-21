@@ -31,5 +31,5 @@ Microsoft Power BI Data Analyst (PL-300) · ISTQB Advanced Level Test Analyst ·
 
 Freelance / contract · remote · open to relocation
 
-- GitHub: [@JordyR1986](https://github.com/JordyRdev)
+- GitHub: [@JordyRdev](https://github.com/JordyRdev)
 - Email: jordydev@proton.me
