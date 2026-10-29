@@ -7,6 +7,14 @@ Business Intelligence · Test Automation · AI
 
 Data-driven, risk-based QA for financial systems, data migrations and digital transformation. I bridge data engineering teams and business stakeholders, and I check that systems, data and AI-generated output actually do what they claim. I work remotely with distributed teams across time zones.
 
+## Featured work
+
+| Project | What it shows |
+|---|---|
+| [llm-eval-security-tests](https://github.com/JordyRdev/llm-eval-security-tests) | OWASP Top 10 for LLM security tests and answer-quality checks as CI release gates, on an NL-to-SQL chat app with role-based access (promptfoo, GitHub Actions) |
+| [playwright-typescript-portfolio](https://github.com/JordyRdev/playwright-typescript-portfolio) | Playwright + TypeScript UI and API framework: Page Objects, fixtures, Zod contract tests, 4 browsers, CI with HTML report |
+| [powerbi-dashboard-playwright](https://github.com/JordyRdev/powerbi-dashboard-playwright) | Data-quality pipeline: DuckDB star schema with 19 automated checks and idempotency tests, Allure reporting, sharded CI |
+
 ## Tech stack
 
 - **Test automation:** Playwright (TypeScript), CodeceptJS, Selenium, Cypress, Allure reporting
