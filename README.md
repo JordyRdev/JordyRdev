@@ -14,6 +14,7 @@ Data-driven, risk-based QA for financial systems, data migrations and digital tr
 | [llm-eval-security-tests](https://github.com/JordyRdev/llm-eval-security-tests) | OWASP Top 10 for LLM security tests and answer-quality checks as CI release gates, on an NL-to-SQL chat app with role-based access (promptfoo, GitHub Actions) |
 | [playwright-typescript-portfolio](https://github.com/JordyRdev/playwright-typescript-portfolio) | Playwright + TypeScript UI and API framework: Page Objects, fixtures, Zod contract tests, 4 browsers, CI with HTML report |
 | [powerbi-dashboard-playwright](https://github.com/JordyRdev/powerbi-dashboard-playwright) | Data-quality pipeline: DuckDB star schema with 19 automated checks and idempotency tests, Allure reporting, sharded CI |
+| [hr-analytics-powerbi-demo](https://github.com/JordyRdev/hr-analytics-powerbi-demo) | Power BI HR dashboard on synthetic data: multi-source star schema in TMDL, 64 documented DAX measures, data-quality page, 46 KPIs validated against an independent pandas calculation |
 
 ## Tech stack
 
