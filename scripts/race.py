@@ -634,15 +634,42 @@ def render_race(theme, stats, width, user):
     out.append(f'<rect x="10" y="{H - 48}" width="246" height="38" rx="8" fill="#000" opacity="0.45"/>')
     out.append(f'<rect x="{width - 150}" y="{H - 48}" width="140" height="38" rx="8" fill="#000" opacity="0.45"/>')
 
-    # speedometer
-    sp = [(0.0, "000")]
-    sp += [(START_T + (i + 1) * ACC_T / 6, f"{v:03d}") for i, v in enumerate((62, 128, 187, 236, 271, 293))]
-    sp += [(m.tf + (i + 1) * BRAKE_T / 5, f"{v:03d}") for i, v in enumerate((241, 168, 94, 31, 0))]
+    # speedometer: follows the real speed curve, wobbles while cruising,
+    # and kicks up with a boost every time a contribution block is collected
+    hits = [t for t, _, _ in collects]
+
+    def kmh(t):
+        dt_ = 1e-3
+        v = (m.D(t + dt_) - m.D(max(t - dt_, 0))) / (2 * dt_) / m.vmax
+        if v <= 0.002:
+            return 0
+        wob = 7 * math.sin(t * 1.7) + 4 * math.sin(t * 4.9 + 1.3)
+        boost = sum(34 * (1 - (t - h) / 0.9) for h in hits if 0 <= t - h < 0.9)
+        return max(0, int(round(v * (288 + wob) + boost * v)))
+
+    sp, t = [], 0.0
+    while t < cyc:
+        val = kmh(t)
+        if not sp or sp[-1][1] != val:
+            sp.append((t, val))
+        t += 0.12
     for i, (t, val) in enumerate(sp):
         t_end = sp[i + 1][0] if i + 1 < len(sp) else cyc + 1
         out.append(f'<text x="{width - 66}" y="{H - 16}" font-size="24" font-weight="bold" font-style="italic" '
-                   f'text-anchor="end" fill="{c["accent"]}" {sh} opacity="0">{val}'
+                   f'text-anchor="end" fill="{c["accent"]}" {sh} opacity="0">{val:03d}'
                    f'{_visibility_anim([(t, 1), (t_end, 0)], cyc)}</text>')
+    # needle-style bar under the number
+    bar_kt, bar_v = [], []
+    for t, val in sp:
+        bar_kt.append(t / cyc)
+        bar_v.append(min(val, 340) / 340 * 118)
+    if bar_kt[-1] < 1:
+        bar_kt.append(1.0)
+        bar_v.append(bar_v[-1])
+    out.append(f'<rect x="{width - 140}" y="{H - 13}" width="118" height="3" fill="#000" opacity="0.5"/>')
+    out.append(f'<rect x="{width - 140}" y="{H - 13}" width="0" height="3" fill="{c["accent"]}">'
+               f'<animate attributeName="width" dur="{cyc:.2f}s" repeatCount="indefinite" calcMode="discrete" '
+               f'keyTimes="{";".join(_f(k) for k in bar_kt)}" values="{";".join(f"{v:.0f}" for v in bar_v)}"/></rect>')
     out.append(f'<text x="{width - 22}" y="{H - 16}" font-size="11" font-weight="bold" text-anchor="end" '
                f'fill="{c["hud"]}" {sh}>KM/H</text>')
 
