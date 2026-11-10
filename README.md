@@ -1,21 +1,13 @@
 <a href="https://github.com/JordyRdev">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/card-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="assets/card-light.svg">
-    <img alt="Jordy's GitHub profile card: Senior QA & Data Quality Consultant. TypeScript, Python, SQL, Playwright, Power BI." src="assets/card-dark.svg" width="100%">
-  </picture>
+  <img alt="Jordy's GitHub profile card: Senior QA & Data Quality Consultant. TypeScript, Python, SQL, Playwright, Power BI." src="assets/card-dark.svg" width="100%">
 </a>
 
 <p>
-  <a href="https://github.com/JordyRdev?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/btn-projects-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/btn-projects-light.svg"><img alt="Projects" src="assets/btn-projects-dark.svg" width="49%"></picture></a>
-  <a href="mailto:jordydev@proton.me"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/btn-email-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/btn-email-light.svg"><img alt="Email" src="assets/btn-email-dark.svg" width="49%"></picture></a>
+  <a href="https://github.com/JordyRdev?tab=repositories"><img alt="Projects" src="assets/btn-projects-dark.svg" width="49%"></a>
+  <a href="mailto:jordydev@proton.me"><img alt="Email" src="assets/btn-email-dark.svg" width="49%"></a>
 </p>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JordyRdev/JordyRdev/output/pacman-contribution-graph-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JordyRdev/JordyRdev/output/pacman-contribution-graph.svg">
-  <img alt="Pac-Man eating my contribution graph" src="https://raw.githubusercontent.com/JordyRdev/JordyRdev/output/pacman-contribution-graph.svg" width="100%">
-</picture>
+<img alt="Pac-Man eating my contribution graph" src="https://raw.githubusercontent.com/JordyRdev/JordyRdev/output/pacman-contribution-graph-dark.svg" width="100%">
 
 ## About me
 
