@@ -27,20 +27,28 @@ ACC_T, BRAKE_T = 1.6, 1.6
 Z_SAMPLES = [26, 20, 15, 11, 8, 6, 4.6, 3.6, 2.8, 2.2, 1.8, 1.5, 1.25, 1.08, 0.95, 0.85, 0.78]
 
 PALETTES = {
+    # Las Vegas strip at night
     "dark": dict(
-        sky=["#0b0f2a", "#2a1550", "#7a2a6e", "#ff6b6b"], sun=["#ffd36e", "#ff4fa3"],
-        mount="#1c1240", mount_edge="#ff4fd8", grass=["#0e1a14", "#122319"],
-        road=["#262633", "#2e2e3d"], kerb=["#ff4f6d", "#e8e8f0"], dash="#e8e8f0",
-        hud="#ffffff", hud_dim="#c9bce8", accent="#ffa657", post="#4b3a7a", lamp="#ffd36e",
-        lv=["#21262d", "#0e4429", "#006d32", "#26a641", "#39d353"], red="#f85149", green="#3fb950",
-        board="#1b1036", board_text="#ffd36e"),
+        scene="vegas",
+        sky=["#05030f", "#120a2e", "#2d0f4f", "#8a2475"],
+        ground=["#0c0a18", "#120f22"], side=["#1a1530", "#221c3f"], side_w=210,
+        road=["#1c1a29", "#232136"], kerb=["#ff2bd6", "#21e6ff"], dash="#ffe14d",
+        trunk="#2a1f3d", frond=["#0f4d36", "#2bd98a"],
+        neon=["#ff2bd6", "#21e6ff", "#ffe14d", "#39ff88", "#ff7a1a"],
+        hud="#ffffff", hud_dim="#d9c8ff", accent="#ffe14d", post="#3a2d5c",
+        lv=["#21262d", "#0e4429", "#006d32", "#26a641", "#39d353"], red="#ff3355", green="#39ff88",
+        board="#150b29", board_text="#ffe14d"),
+    # tropical coast in the sun
     "light": dict(
-        sky=["#3d8bd9", "#6fb6f2", "#a9dcff", "#e6f6ff"], sun=["#fff7c2", "#ffd23f"],
-        mount="#7d9cc0", mount_edge="#ffffff", grass=["#5fae4a", "#6dbd57"],
+        scene="beach",
+        sky=["#1f7fe0", "#4fa8f0", "#9fd6ff", "#e3f5ff"], sun=["#fffbe0", "#ffe066"],
+        water=["#1597c0", "#1fb0d6"], foam="#e9fbff",
+        ground=["#4fae4a", "#5dbd56"], side=["#ecd29b", "#f4e0b4"], side_w=210,
         road=["#7e7e86", "#88888f"], kerb=["#d7263d", "#ffffff"], dash="#ffffff",
-        hud="#ffffff", hud_dim="#eef6ff", accent="#ffd23f", post="#5b4a3a", lamp="#fff3a0",
+        trunk="#8a5a33", frond=["#2f9e44", "#4cc75e"],
+        hud="#ffffff", hud_dim="#f0f8ff", accent="#ffd23f", post="#7a4f2c",
         lv=["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"], red="#d7263d", green="#1a7f37",
-        board="#ffffff", board_text="#953800"),
+        board="#fff6dc", board_text="#c2410c"),
 }
 
 
@@ -139,22 +147,101 @@ def _visibility_anim(changes, cyc):
 # --------------------------------------------------------------------------- #
 #  Drawing helpers (reference depth z=1, origin at the vanishing point)        #
 # --------------------------------------------------------------------------- #
-def _band(c, k, width):
+def _band_ground(c, k, width):
+    """Ground stripe of one band at reference depth (lighter shades = motion cue)."""
     y0, hgt = CAM_H, CAM_H * 0.09
-    g = [f'<rect x="{-width * 4}" y="{y0}" width="{width * 8}" height="{hgt:.1f}" fill="{c["grass"][1]}"/>',
-         f'<rect x="{-ROAD_W}" y="{y0}" width="{2 * ROAD_W}" height="{hgt:.1f}" fill="{c["road"][1]}"/>',
-         f'<rect x="{-ROAD_W - 34}" y="{y0}" width="34" height="{hgt:.1f}" fill="{c["kerb"][0]}"/>',
-         f'<rect x="{ROAD_W}" y="{y0}" width="34" height="{hgt:.1f}" fill="{c["kerb"][0]}"/>']
+    edge = ROAD_W + 34 + c["side_w"]
+    far = width * 6
+    g = []
+    if c["scene"] == "beach":
+        g.append(f'<rect x="{-far}" y="{y0}" width="{far - edge}" height="{hgt:.1f}" fill="{c["water"][1]}"/>')
+        g.append(f'<rect x="{-edge - 16}" y="{y0}" width="16" height="{hgt:.1f}" fill="{c["foam"]}"/>')
+    else:
+        g.append(f'<rect x="{-far}" y="{y0}" width="{far - edge}" height="{hgt:.1f}" fill="{c["ground"][1]}"/>')
+    g.append(f'<rect x="{edge}" y="{y0}" width="{far}" height="{hgt:.1f}" fill="{c["ground"][1]}"/>')
+    g.append(f'<rect x="{-edge}" y="{y0}" width="{c["side_w"]}" height="{hgt:.1f}" fill="{c["side"][1]}"/>')
+    g.append(f'<rect x="{ROAD_W + 34}" y="{y0}" width="{c["side_w"]}" height="{hgt:.1f}" fill="{c["side"][1]}"/>')
+    g.append(f'<rect x="{-ROAD_W}" y="{y0}" width="{2 * ROAD_W}" height="{hgt:.1f}" fill="{c["road"][1]}"/>')
+    g.append(f'<rect x="{-ROAD_W - 34}" y="{y0}" width="34" height="{hgt:.1f}" fill="{c["kerb"][0]}"/>')
+    g.append(f'<rect x="{ROAD_W}" y="{y0}" width="34" height="{hgt:.1f}" fill="{c["kerb"][0]}"/>')
     for lx in (-80, 80):
         g.append(f'<rect x="{lx - 4}" y="{y0}" width="8" height="{hgt:.1f}" fill="{c["dash"]}"/>')
-    if k % 2 == 0:                                # street lamps on every other band
-        for sgn in (-1, 1):
-            px = sgn * (ROAD_W + 90)
-            arm_x = px - 45 if sgn > 0 else px
-            lamp_x = px - 45 if sgn > 0 else px + 33
-            g.append(f'<rect x="{px - 5}" y="{y0 - 170}" width="10" height="170" fill="{c["post"]}"/>')
-            g.append(f'<rect x="{arm_x}" y="{y0 - 178}" width="45" height="8" fill="{c["post"]}"/>')
-            g.append(f'<rect x="{lamp_x}" y="{y0 - 170}" width="12" height="7" fill="{c["lamp"]}"/>')
+    return "".join(g)
+
+
+def _palm(c, x, lean, glow=False):
+    """Pixel palm tree standing at (x, CAM_H); lean = +1 leans right, -1 left."""
+    y = CAM_H
+    g = []
+    for i in range(8):                                  # curved trunk
+        off = lean * (i * i) * 0.9
+        g.append(f'<rect x="{x + off - 7:.1f}" y="{y - (i + 1) * 26}" width="14" height="27" '
+                 f'fill="{c["trunk"]}"/>')
+        g.append(f'<rect x="{x + off - 7:.1f}" y="{y - (i + 1) * 26}" width="14" height="4" fill="#000" opacity="0.18"/>')
+    tx, ty = x + lean * 49 * 0.9, y - 208
+    dark, light = c["frond"]
+    for ang, ln in ((-160, 95), (-120, 80), (-60, 80), (-20, 95), (-90, 60), (160, 70), (20, 70)):
+        import math as _m
+        a = _m.radians(ang)
+        ex, ey = tx + ln * _m.cos(a), ty + ln * _m.sin(a) + 40
+        mx, my = tx + ln * 0.5 * _m.cos(a), ty + ln * 0.5 * _m.sin(a) - 8
+        g.append(f'<path d="M{tx:.0f},{ty:.0f} Q{mx:.0f},{my - 14:.0f} {ex:.0f},{ey:.0f} '
+                 f'Q{mx:.0f},{my + 8:.0f} {tx:.0f},{ty + 8:.0f} Z" fill="{dark}"/>')
+        g.append(f'<path d="M{tx:.0f},{ty:.0f} Q{mx:.0f},{my - 14:.0f} {ex:.0f},{ey:.0f}" fill="none" '
+                 f'stroke="{light}" stroke-width="{4 if glow else 3}"/>')
+    g.append(f'<circle cx="{tx - 6:.0f}" cy="{ty + 8:.0f}" r="7" fill="#6b3f1d"/>'
+             f'<circle cx="{tx + 7:.0f}" cy="{ty + 10:.0f}" r="7" fill="#7d4a22"/>')
+    return "".join(g)
+
+
+VEGAS_WORDS = ["CASINO", "777", "JACKPOT", "HOTEL", "LUCKY", "BAR", "SLOTS", "SHOW"]
+
+
+def _neon_sign(c, x, k):
+    """Tall casino pylon with a marquee-bulb border and flickering neon word."""
+    y = CAM_H
+    col = c["neon"][k % len(c["neon"])]
+    col2 = c["neon"][(k + 2) % len(c["neon"])]
+    word = VEGAS_WORDS[k % len(VEGAS_WORDS)]
+    w = max(150, 34 * len(word))
+    top = y - 330
+    return (f'<rect x="{x - 9}" y="{top + 120}" width="18" height="{330 - 120}" fill="{c["post"]}"/>'
+            f'<rect x="{x - w / 2}" y="{top}" width="{w}" height="120" rx="10" fill="#0b0716" stroke="{col2}" stroke-width="5"/>'
+            f'<rect x="{x - w / 2 + 12}" y="{top + 12}" width="{w - 24}" height="96" rx="6" fill="none" stroke="{c["neon"][2]}" '
+            f'stroke-width="8" stroke-linecap="round" stroke-dasharray="0 18">'
+            f'<animate attributeName="stroke-dashoffset" values="0;18" dur="0.5s" repeatCount="indefinite"/></rect>'
+            f'<text x="{x}" y="{top + 82}" font-size="54" font-weight="bold" text-anchor="middle" fill="{col}" '
+            f'stroke="{col}" stroke-width="2">{word}'
+            f'<animate attributeName="opacity" values="1;1;0.35;1;1;1;0.5;1" dur="{1.7 + (k % 3) * 0.6:.1f}s" '
+            f'repeatCount="indefinite" calcMode="discrete"/></text>')
+
+
+def _parasol(c, x, k):
+    y = CAM_H
+    cols = ["#ff4d6d", "#ffd23f", "#2ec4b6", "#ff8c42"]
+    a, b = cols[k % 4], "#ffffff"
+    return (f'<rect x="{x - 3}" y="{y - 120}" width="6" height="120" fill="#f5f5f5"/>'
+            f'<path d="M{x - 80},{y - 100} Q{x},{y - 170} {x + 80},{y - 100} Z" fill="{a}"/>'
+            f'<path d="M{x - 27},{y - 100} Q{x},{y - 160} {x + 27},{y - 100} Z" fill="{b}"/>'
+            f'<rect x="{x - 70}" y="{y - 14}" width="60" height="10" rx="3" fill="{cols[(k + 1) % 4]}"/>')
+
+
+def _band_props(c, k):
+    """Roadside props for one band (drawn outside the ground clip so they rise above the horizon)."""
+    g = []
+    side_mid = ROAD_W + 34 + c["side_w"] / 2
+    if c["scene"] == "beach":
+        if k % 2 == 0:
+            g.append(_palm(c, -side_mid - 40, -1))
+            g.append(_palm(c, side_mid + 30, 1))
+        elif k % 4 == 1:
+            g.append(_parasol(c, -side_mid + 20, k))
+    else:
+        if k % 2 == 0:
+            g.append(_palm(c, -(ROAD_W + 100), -1, glow=True))
+            g.append(_palm(c, ROAD_W + 100, 1, glow=True))
+        elif k % 4 == 1:
+            g.append(_neon_sign(c, (1 if k % 8 == 1 else -1) * (side_mid + 60), k))
     return "".join(g)
 
 
@@ -251,6 +338,108 @@ def _car(flame_anim=""):
     return "".join(g)
 
 
+def _scene_sky(c, theme, width, cyc):
+    """Everything above the horizon."""
+    import random
+    rnd = random.Random(7)
+    vx = width / 2
+    out = [f'<rect width="{width}" height="{HORIZON + 1}" fill="url(#sky-{theme})"/>']
+    if c["scene"] == "beach":
+        out.append(f'<circle cx="{width * 0.78:.0f}" cy="40" r="38" fill="{c["sun"][1]}" opacity="0.35"/>')
+        out.append(f'<circle cx="{width * 0.78:.0f}" cy="40" r="26" fill="url(#sun-{theme})"/>')
+        for i, (cx_, cy_, sc) in enumerate([(120, 38, 1.0), (380, 22, 0.7), (640, 50, 0.85), (900, 30, 0.6)]):
+            cloud = (f'<g transform="translate({cx_},{cy_}) scale({sc})" fill="#ffffff" opacity="0.92">'
+                     '<rect x="-40" y="0" width="80" height="16" rx="8"/><rect x="-22" y="-12" width="40" height="20" rx="10"/>'
+                     '<rect x="4" y="-6" width="30" height="16" rx="8"/></g>')
+            out.append(f'<g>{cloud}<animateTransform attributeName="transform" type="translate" '
+                       f'values="0 0;{-width - 200} 0" dur="{70 + i * 15}s" repeatCount="indefinite"/></g>')
+            out.append(f'<g transform="translate({width + 100},0)">{cloud}<animateTransform attributeName="transform" '
+                       f'type="translate" values="{width + 100} 0;{-100} 0" dur="{70 + i * 15}s" repeatCount="indefinite"/></g>')
+        # sea to the left reaching the horizon, island on the right
+        out.append(f'<rect x="0" y="{HORIZON - 4}" width="{vx}" height="5" fill="{c["water"][0]}"/>')
+        isl = [(vx + 40, HORIZON), (vx + 120, HORIZON - 16), (vx + 200, HORIZON - 30), (vx + 260, HORIZON - 22),
+               (vx + 340, HORIZON - 34), (vx + 430, HORIZON - 14), (width, HORIZON - 10), (width, HORIZON)]
+        out.append(f'<polygon points="{" ".join(f"{x:.0f},{y:.0f}" for x, y in isl)}" fill="#3f9a5a"/>')
+        out.append(f'<polygon points="{" ".join(f"{x:.0f},{y + 6:.0f}" for x, y in isl[:-2])} {width},{HORIZON} '
+                   f'{vx + 40},{HORIZON}" fill="#2f7d47" opacity="0.6"/>')
+        # sailboat bobbing on the sea
+        out.append(f'<g transform="translate({vx * 0.42:.0f},{HORIZON - 6})"><g>'
+                   '<path d="M-14,0 L14,0 L10,5 L-10,5 Z" fill="#ffffff"/><path d="M0,-2 L0,-26 L12,-4 Z" fill="#ffffff"/>'
+                   '<path d="M-2,-4 L-2,-20 L-11,-4 Z" fill="#ff4d6d"/>'
+                   '<animateTransform attributeName="transform" type="translate" values="0 0;0 -1.5;0 0" dur="2.4s" repeatCount="indefinite"/>'
+                   '</g></g>')
+        # seagulls
+        for gx, gy, d in ((260, 60, 0.9), (290, 52, 1.1), (560, 34, 1.0)):
+            out.append(f'<path d="M{gx - 7},{gy} Q{gx - 3},{gy - 5} {gx},{gy} Q{gx + 3},{gy - 5} {gx + 7},{gy}" '
+                       f'fill="none" stroke="#2b3a4a" stroke-width="1.6">'
+                       f'<animate attributeName="d" dur="{d}s" repeatCount="indefinite" values="'
+                       f'M{gx - 7},{gy} Q{gx - 3},{gy - 5} {gx},{gy} Q{gx + 3},{gy - 5} {gx + 7},{gy};'
+                       f'M{gx - 7},{gy - 3} Q{gx - 3},{gy + 2} {gx},{gy} Q{gx + 3},{gy + 2} {gx + 7},{gy - 3};'
+                       f'M{gx - 7},{gy} Q{gx - 3},{gy - 5} {gx},{gy} Q{gx + 3},{gy - 5} {gx + 7},{gy}"/></path>')
+        return out
+
+    # ---- Las Vegas night ---------------------------------------------------------
+    for _ in range(70):                                   # stars
+        sx, sy = rnd.uniform(0, width), rnd.uniform(4, HORIZON - 50)
+        r = rnd.choice((0.7, 0.9, 1.2))
+        tw = (f'<animate attributeName="opacity" values="1;0.2;1" dur="{rnd.uniform(1.5, 4):.1f}s" '
+              f'begin="{rnd.uniform(0, 3):.1f}s" repeatCount="indefinite"/>' if rnd.random() < 0.35 else "")
+        out.append(f'<circle cx="{sx:.0f}" cy="{sy:.0f}" r="{r}" fill="#ffffff" opacity="0.8">{tw}</circle>')
+    # searchlights sweeping from behind the skyline
+    for bx_, d, col in ((vx - 260, 7, "#7fe8ff"), (vx + 250, 9, "#ffd1f5")):
+        out.append(f'<g transform="translate({bx_:.0f},{HORIZON})"><path d="M-4,0 L-46,-260 L46,-260 L4,0 Z" '
+                   f'fill="{col}" opacity="0.13"><animateTransform attributeName="transform" type="rotate" '
+                   f'values="-28;28;-28" dur="{d}s" repeatCount="indefinite"/></path></g>')
+    # horizon city glow
+    out.append(f'<rect x="0" y="{HORIZON - 40}" width="{width}" height="40" fill="url(#glow-{theme})"/>')
+    # skyline: casino towers with lit windows and neon crowns
+    x = 0
+    k = 0
+    while x < width:
+        w_ = rnd.randint(22, 52)
+        gap_center = abs(x + w_ / 2 - vx) < 30
+        h_ = rnd.randint(18, 40) if gap_center else rnd.randint(26, 92)
+        top = HORIZON - h_
+        out.append(f'<rect x="{x}" y="{top}" width="{w_}" height="{h_}" fill="#140d2a"/>')
+        for wy in range(top + 5, HORIZON - 3, 6):
+            for wx in range(x + 4, x + w_ - 3, 6):
+                if rnd.random() < 0.38:
+                    colw = rnd.choice(("#ffe9a8", "#ffe9a8", "#9ff3ff", "#ffc2f0"))
+                    tw = (f'<animate attributeName="opacity" values="1;0;1" dur="{rnd.uniform(2, 6):.1f}s" '
+                          f'begin="{rnd.uniform(0, 4):.1f}s" repeatCount="indefinite" calcMode="discrete"/>'
+                          if rnd.random() < 0.06 else "")
+                    out.append(f'<rect x="{wx}" y="{wy}" width="2" height="2" fill="{colw}" opacity="0.85">{tw}</rect>')
+        if rnd.random() < 0.55:
+            col = c["neon"][k % len(c["neon"])]
+            out.append(f'<rect x="{x}" y="{top}" width="{w_}" height="2" fill="{col}"/>')
+            if rnd.random() < 0.5:
+                out.append(f'<rect x="{x + w_ / 2 - 1:.0f}" y="{top - 12}" width="2" height="12" fill="{col}"/>'
+                           f'<circle cx="{x + w_ / 2:.0f}" cy="{top - 13}" r="2.5" fill="{col}">'
+                           f'<animate attributeName="opacity" values="1;0.2;1" dur="1.2s" repeatCount="indefinite"/></circle>')
+        x += w_ + rnd.randint(0, 6)
+        k += 1
+    return out
+
+
+def _scene_ground_base(c, theme, width, vx):
+    """Static ground under the moving bands: perspective wedges from the vanishing point."""
+    S = 2.0
+    yb = HORIZON + CAM_H * S
+    edge = ROAD_W + 34 + c["side_w"]
+    far = width * 3
+    left_col = c["water"][0] if c["scene"] == "beach" else c["ground"][0]
+    out = [f'<polygon points="{vx},{HORIZON} {vx - edge * S:.0f},{yb} {-far},{yb} {-far},{HORIZON}" fill="{left_col}"/>',
+           f'<polygon points="{vx},{HORIZON} {vx + edge * S:.0f},{yb} {far},{yb} {far},{HORIZON}" fill="{c["ground"][0]}"/>',
+           f'<polygon points="{vx},{HORIZON} {vx - edge * S:.0f},{yb} {vx + edge * S:.0f},{yb}" fill="{c["side"][0]}"/>',
+           f'<polygon points="{vx},{HORIZON} {vx - (ROAD_W + 34) * S:.0f},{yb} {vx + (ROAD_W + 34) * S:.0f},{yb}" '
+           f'fill="{c["kerb"][1]}"/>',
+           f'<polygon points="{vx},{HORIZON} {vx - ROAD_W * S:.0f},{yb} {vx + ROAD_W * S:.0f},{yb}" fill="{c["road"][0]}"/>']
+    if c["scene"] == "beach":   # shoreline foam line
+        out.append(f'<line x1="{vx}" y1="{HORIZON}" x2="{vx - (edge + 8) * S:.0f}" y2="{yb}" stroke="{c["foam"]}" '
+                   f'stroke-width="3" opacity="0.8"/>')
+    return out
+
+
 # --------------------------------------------------------------------------- #
 #  Main renderer                                                               #
 # --------------------------------------------------------------------------- #
@@ -286,37 +475,21 @@ def render_race(theme, stats, width, user):
            f'<linearGradient id="sky-{theme}" x1="0" y1="0" x2="0" y2="1">'
            + "".join(f'<stop offset="{i / 3:.2f}" stop-color="{col}"/>' for i, col in enumerate(c["sky"]))
            + '</linearGradient>',
-           f'<linearGradient id="sun-{theme}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{c["sun"][0]}"/>'
-           f'<stop offset="1" stop-color="{c["sun"][1]}"/></linearGradient>',
+           f'<linearGradient id="sun-{theme}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{c.get("sun", ["#fff", "#fff"])[0]}"/>'
+           f'<stop offset="1" stop-color="{c.get("sun", ["#fff", "#fff"])[1]}"/></linearGradient>',
+           f'<linearGradient id="glow-{theme}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff2bd6" stop-opacity="0"/>'
+           f'<stop offset="1" stop-color="#ff7ad9" stop-opacity="0.45"/></linearGradient>',
            f'<clipPath id="card-{theme}"><rect width="{width}" height="{H}" rx="15"/></clipPath>',
            f'<clipPath id="ground-{theme}"><rect y="{HORIZON}" width="{width}" height="{H - HORIZON}"/></clipPath>',
            '</defs>',
            f'<g clip-path="url(#card-{theme})">']
 
-    # ---- sky, sun, mountains ------------------------------------------------------
-    out.append(f'<rect width="{width}" height="{HORIZON + 1}" fill="url(#sky-{theme})"/>')
-    sun_r = 62
-    out.append(f'<circle cx="{vx}" cy="{HORIZON - 8}" r="{sun_r}" fill="url(#sun-{theme})"/>')
-    if theme == "dark":
-        for i in range(5):
-            out.append(f'<rect x="{vx - sun_r}" y="{HORIZON - 34 + i * 7}" width="{2 * sun_r}" '
-                       f'height="{2 + i * 0.8:.1f}" fill="{c["sky"][3]}"/>')
-    ridge = [(0, HORIZON), (60, HORIZON - 22), (130, HORIZON - 10), (210, HORIZON - 38), (300, HORIZON - 14),
-             (380, HORIZON - 28), (440, HORIZON - 8), (vx + 160, HORIZON - 12), (vx + 230, HORIZON - 34),
-             (vx + 320, HORIZON - 16), (vx + 400, HORIZON - 30), (width - 40, HORIZON - 12), (width, HORIZON - 20),
-             (width, HORIZON)]
-    out.append(f'<polygon points="{" ".join(f"{x:.0f},{y:.0f}" for x, y in ridge)}" fill="{c["mount"]}"/>')
-    out.append(f'<polyline points="{" ".join(f"{x:.0f},{y:.0f}" for x, y in ridge[1:-1])}" fill="none" '
-               f'stroke="{c["mount_edge"]}" stroke-width="1.5" opacity="0.6"/>')
+    # ---- sky / skyline ------------------------------------------------------------
+    out += _scene_sky(c, theme, width, cyc)
 
     # ---- ground: static base + moving stripe bands -----------------------------------
     out.append(f'<g clip-path="url(#ground-{theme})">')
-    out.append(f'<rect y="{HORIZON}" width="{width}" height="{H - HORIZON}" fill="{c["grass"][0]}"/>')
-    k15 = 1.5
-    out.append(f'<polygon points="{vx},{HORIZON} {vx - (ROAD_W + 34) * k15:.0f},{HORIZON + CAM_H * k15} '
-               f'{vx + (ROAD_W + 34) * k15:.0f},{HORIZON + CAM_H * k15}" fill="{c["kerb"][1]}"/>')
-    out.append(f'<polygon points="{vx},{HORIZON} {vx - ROAD_W * k15:.0f},{HORIZON + CAM_H * k15} '
-               f'{vx + ROAD_W * k15:.0f},{HORIZON + CAM_H * k15}" fill="{c["road"][0]}"/>')
+    out += _scene_ground_base(c, theme, width, vx)
 
     K = int(math.ceil((Z_FAR - Z_NEAR) / BAND_L)) + 1
     loop = K * BAND_L
@@ -344,10 +517,14 @@ def render_race(theme, stats, width, user):
             p += 1
         zend = Z_NEAR + ((z0 - Z_NEAR - m.dmax) % loop)
         kf.append((cyc, 1 / zend))
-        bands.append((z0, _band(c, k, width), kf))
-    for _, content, kf in reversed(bands):
-        out.append(f'<g transform="translate({vx},{HORIZON})"><g>{content}{_anim_scale(kf, cyc)}</g></g>')
+        bands.append((z0, k, kf))
+    for _, k, kf in reversed(bands):
+        out.append(f'<g transform="translate({vx},{HORIZON})"><g>{_band_ground(c, k, width)}{_anim_scale(kf, cyc)}</g></g>')
     out.append('</g>')
+    for _, k, kf in reversed(bands):          # roadside props rise above the horizon
+        props = _band_props(c, k)
+        if props:
+            out.append(f'<g transform="translate({vx},{HORIZON})"><g>{props}{_anim_scale(kf, cyc)}</g></g>')
 
     # ---- world objects: month billboards, contribution blocks, finish gate ----------
     objs = []                       # (track distance, svg, hide-at-depth)
@@ -452,6 +629,10 @@ def render_race(theme, stats, width, user):
                            f'{sh}>{digit}{_visibility_anim(changes, cyc)}</text>')
     out.append(f'<text x="{width - 22}" y="46" font-size="10" fill="{c["hud_dim"]}" {sh_sm} text-anchor="end" '
                f'letter-spacing="1">CONTRIBUTIONS COLLECTED</text>')
+
+    # dark backing panels so the bottom HUD reads on bright scenery
+    out.append(f'<rect x="10" y="{H - 48}" width="246" height="38" rx="8" fill="#000" opacity="0.45"/>')
+    out.append(f'<rect x="{width - 150}" y="{H - 48}" width="140" height="38" rx="8" fill="#000" opacity="0.45"/>')
 
     # speedometer
     sp = [(0.0, "000")]
