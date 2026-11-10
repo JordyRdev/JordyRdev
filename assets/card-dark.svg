@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" font-family="ConsolasFallback,Consolas,'DejaVu Sans Mono',monospace" width="1023px" height="560px" font-size="16px">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" font-family="ConsolasFallback,Consolas,'DejaVu Sans Mono',monospace" width="1023px" height="580px" font-size="16px">
 <style>
 @font-face{src:local('Consolas'),local('Consolas Bold');font-family:'ConsolasFallback';font-display:swap;-webkit-size-adjust:109%;size-adjust:109%;}
 .text{fill:#c9d1d9;}
@@ -13,43 +13,43 @@
 @keyframes blink{50%{opacity:0;}}
 text,tspan{white-space:pre;}
 </style>
-<rect width="1023px" height="560px" fill="#161b22" rx="15"/>
-<text x="20" y="55.5" class="art" font-size="11px">
-<tspan x="20" y="55.5">                          x%%&amp;#x=</tspan>
-<tspan x="20" y="68.9">                     +x-~;;:;==**j%#%</tspan>
-<tspan x="20" y="82.3">                 =j+~*+-::;,``,,-::;-xj+~</tspan>
-<tspan x="20" y="95.7">                **;,~xkkkkj*=~~;,^`^,---+xj</tspan>
-<tspan x="20" y="109.1">               jj++#@@@@@$&amp;%k+++==-,,-```-=**</tspan>
-<tspan x="20" y="122.5">               =j&amp;$@@@@@@@$##kjjxx=^:,,`^,-==x</tspan>
-<tspan x="20" y="135.9">                *@@@@@@@@@@$$#jxxxx~,^^^^`:;~=j</tspan>
-<tspan x="20" y="149.3">                $@@@@@@&amp;jjk*++**xjj+;^``^`^:-=~k</tspan>
-<tspan x="20" y="162.7">               *@@@@@$*+#@@#k+~+xjjj=:^````:~+=j=</tspan>
-<tspan x="20" y="176.1">              ~+k$@@%:`&amp;#k&amp;k===+*xjjx=:^```--=-j=</tspan>
-<tspan x="20" y="189.5">              =#j$$*;,`=@@@@%%#&amp;kxjkk*~^``,+xj=*=</tspan>
-<tspan x="20" y="202.9">               &amp;$k=-;--j@@@@@@@#jxjk%jj-~~x+kxj*</tspan>
-<tspan x="20" y="216.3">               @j:==-,;=@@@@@@#x+xjkkj%x%j==xkj*</tspan>
-<tspan x="20" y="229.7">               %%+-=;^;x@@@@$%*=+*xjx=+*j%~=~k%+</tspan>
-<tspan x="20" y="243.1">               %%#&amp;+-+k&amp;@@@$#x==+*=+====xx=kk%k</tspan>
-<tspan x="20" y="256.5">               @@@@@$k+++j$#j+~-~~~=x*=xxxjj#&amp;</tspan>
-<tspan x="20" y="269.9">               @@$@&amp;&amp;kj%&amp;j#j*~;:--=+%k#&amp;$$#&amp;&amp;j</tspan>
-<tspan x="20" y="283.3">               @$%k%%%#&amp;&amp;&amp;k*=-;::-++k$@&amp;@$$$k</tspan>
-<tspan x="20" y="296.7">               @@$$$&amp;&amp;##%k**=-:;-==*k##%&amp;&amp;$&amp;</tspan>
-<tspan x="20" y="310.1">               k@@@&amp;%*=+x==~==~;~~-*xx+*x#$*</tspan>
-<tspan x="20" y="323.5">                @$%#kx+~~-::,:;:;-~~-~++*%$</tspan>
-<tspan x="20" y="336.9">                j#*~~:::^,``^^,;;;;=+****%$</tspan>
-<tspan x="20" y="350.3">                   ;~,^^^::^^^:;:-~+*x***k&amp;==</tspan>
-<tspan x="20" y="363.7">                     xjjjk*~~-;;-~=+*x****;;j*</tspan>
-<tspan x="20" y="377.1">                     *@@@@@%+=~-~~=+*x**+-^;*%k</tspan>
-<tspan x="20" y="390.5">                  ^^`+@@@@$%*~--~=+*jkj*~^:;-+jkkx</tspan>
-<tspan x="20" y="403.9">               ;:^`&#x27;&#x27;=@@@$&amp;#j=~+*+*k&amp;$&amp;j:;--==+*xxjx~-;^</tspan>
-<tspan x="20" y="417.3">            ;-:,^`&#x27;..-$@@@$$#jjjjx*k$@$=----~==+**=-;=~-*j</tspan>
-<tspan x="20" y="430.7">          :~;,^``&#x27;&#x27;..;%$@@@@&amp;%#%j*+j$@*-^&#x27;.&#x27;&#x27;`^:-==;^^~+~~+*</tspan>
-<tspan x="20" y="444.1">       ;,``:;,^`&#x27;&#x27;`&#x27;&#x27;+*&amp;@@$&amp;&amp;&amp;&amp;kx*x#@j,...........`,:--~-:,,</tspan>
-<tspan x="20" y="457.5">     ~,&#x27;&#x27;&#x27;,:^^:,^^..-x*k$@&amp;%&amp;$&amp;kk%#&amp;;.....&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;.`:;;:,^`^,,</tspan>
-<tspan x="20" y="470.9">  ~~-^&#x27;&#x27;&#x27;^~-^``;^&#x27;&#x27;&#x27;xkjk$$#k%&amp;&amp;#&amp;$#;...&#x27;&#x27;&#x27;&#x27;```&#x27;`,;;;;:,^::,^</tspan>
-<tspan x="20" y="484.3">+*,`:&#x27;&#x27;&#x27;^,-+`&#x27;^;`&#x27;&#x27;^xjjk&amp;$&amp;k%#$$k=-,.&#x27;&#x27;&#x27;``````:;;;:::;:::,::</tspan>
-<tspan x="20" y="497.7">~^&#x27;;`&#x27;&#x27;^:;-*,`:`.`&#x27;,+*xj%&amp;#k%&amp;%~;;;...&#x27;^^```,--;;;::::,::,:,</tspan>
-<tspan x="20" y="511.1">^&#x27;^:&#x27;&#x27;,::;-*-~;`..`,~=*jk%%%#=,::,...&#x27;^```^;;;;:::::,^^:,,,`</tspan>
+<rect width="1023px" height="580px" fill="#161b22" rx="15"/>
+<text x="20" y="65.5" class="art" font-size="11px">
+<tspan x="20" y="65.5">                          x%%&amp;#x=</tspan>
+<tspan x="20" y="78.9">                     +x-~;;:;==**j%#%</tspan>
+<tspan x="20" y="92.3">                 =j+~*+-::;,``,,-::;-xj+~</tspan>
+<tspan x="20" y="105.7">                **;,~xkkkkj*=~~;,^`^,---+xj</tspan>
+<tspan x="20" y="119.1">               jj++#@@@@@$&amp;%k+++==-,,-```-=**</tspan>
+<tspan x="20" y="132.5">               =j&amp;$@@@@@@@$##kjjxx=^:,,`^,-==x</tspan>
+<tspan x="20" y="145.9">                *@@@@@@@@@@$$#jxxxx~,^^^^`:;~=j</tspan>
+<tspan x="20" y="159.3">                $@@@@@@&amp;jjk*++**xjj+;^``^`^:-=~k</tspan>
+<tspan x="20" y="172.7">               *@@@@@$*+#@@#k+~+xjjj=:^````:~+=j=</tspan>
+<tspan x="20" y="186.1">              ~+k$@@%:`&amp;#k&amp;k===+*xjjx=:^```--=-j=</tspan>
+<tspan x="20" y="199.5">              =#j$$*;,`=@@@@%%#&amp;kxjkk*~^``,+xj=*=</tspan>
+<tspan x="20" y="212.9">               &amp;$k=-;--j@@@@@@@#jxjk%jj-~~x+kxj*</tspan>
+<tspan x="20" y="226.3">               @j:==-,;=@@@@@@#x+xjkkj%x%j==xkj*</tspan>
+<tspan x="20" y="239.7">               %%+-=;^;x@@@@$%*=+*xjx=+*j%~=~k%+</tspan>
+<tspan x="20" y="253.1">               %%#&amp;+-+k&amp;@@@$#x==+*=+====xx=kk%k</tspan>
+<tspan x="20" y="266.5">               @@@@@$k+++j$#j+~-~~~=x*=xxxjj#&amp;</tspan>
+<tspan x="20" y="279.9">               @@$@&amp;&amp;kj%&amp;j#j*~;:--=+%k#&amp;$$#&amp;&amp;j</tspan>
+<tspan x="20" y="293.3">               @$%k%%%#&amp;&amp;&amp;k*=-;::-++k$@&amp;@$$$k</tspan>
+<tspan x="20" y="306.7">               @@$$$&amp;&amp;##%k**=-:;-==*k##%&amp;&amp;$&amp;</tspan>
+<tspan x="20" y="320.1">               k@@@&amp;%*=+x==~==~;~~-*xx+*x#$*</tspan>
+<tspan x="20" y="333.5">                @$%#kx+~~-::,:;:;-~~-~++*%$</tspan>
+<tspan x="20" y="346.9">                j#*~~:::^,``^^,;;;;=+****%$</tspan>
+<tspan x="20" y="360.3">                   ;~,^^^::^^^:;:-~+*x***k&amp;==</tspan>
+<tspan x="20" y="373.7">                     xjjjk*~~-;;-~=+*x****;;j*</tspan>
+<tspan x="20" y="387.1">                     *@@@@@%+=~-~~=+*x**+-^;*%k</tspan>
+<tspan x="20" y="400.5">                  ^^`+@@@@$%*~--~=+*jkj*~^:;-+jkkx</tspan>
+<tspan x="20" y="413.9">               ;:^`&#x27;&#x27;=@@@$&amp;#j=~+*+*k&amp;$&amp;j:;--==+*xxjx~-;^</tspan>
+<tspan x="20" y="427.3">            ;-:,^`&#x27;..-$@@@$$#jjjjx*k$@$=----~==+**=-;=~-*j</tspan>
+<tspan x="20" y="440.7">          :~;,^``&#x27;&#x27;..;%$@@@@&amp;%#%j*+j$@*-^&#x27;.&#x27;&#x27;`^:-==;^^~+~~+*</tspan>
+<tspan x="20" y="454.1">       ;,``:;,^`&#x27;&#x27;`&#x27;&#x27;+*&amp;@@$&amp;&amp;&amp;&amp;kx*x#@j,...........`,:--~-:,,</tspan>
+<tspan x="20" y="467.5">     ~,&#x27;&#x27;&#x27;,:^^:,^^..-x*k$@&amp;%&amp;$&amp;kk%#&amp;;.....&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;.`:;;:,^`^,,</tspan>
+<tspan x="20" y="480.9">  ~~-^&#x27;&#x27;&#x27;^~-^``;^&#x27;&#x27;&#x27;xkjk$$#k%&amp;&amp;#&amp;$#;...&#x27;&#x27;&#x27;&#x27;```&#x27;`,;;;;:,^::,^</tspan>
+<tspan x="20" y="494.3">+*,`:&#x27;&#x27;&#x27;^,-+`&#x27;^;`&#x27;&#x27;^xjjk&amp;$&amp;k%#$$k=-,.&#x27;&#x27;&#x27;``````:;;;:::;:::,::</tspan>
+<tspan x="20" y="507.7">~^&#x27;;`&#x27;&#x27;^:;-*,`:`.`&#x27;,+*xj%&amp;#k%&amp;%~;;;...&#x27;^^```,--;;;::::,::,:,</tspan>
+<tspan x="20" y="521.1">^&#x27;^:&#x27;&#x27;,::;-*-~;`..`,~=*jk%%%#=,::,...&#x27;^```^;;;;:::::,^^:,,,`</tspan>
 </text>
 <text x="445" y="30" class="text">
 <tspan x="445" y="30"><tspan class="accent">jordy@rdev</tspan><tspan class="text"> ———————————————————————————————————————————————</tspan></tspan>
@@ -70,11 +70,12 @@ text,tspan{white-space:pre;}
 <tspan x="445" y="330"><tspan class="text">- Contact </tspan><tspan class="text">————————————————————————————————————————————————</tspan></tspan>
 <tspan x="445" y="350"><tspan class="dots">. </tspan><tspan class="key">Email</tspan><tspan class="text">:</tspan><tspan class="dots"> .............................. </tspan><tspan class="value">jordydev@proton.me</tspan></tspan>
 <tspan x="445" y="370"><tspan class="dots">. </tspan><tspan class="key">GitHub</tspan><tspan class="text">:</tspan><tspan class="dots"> ...................................... </tspan><tspan class="value">JordyRdev</tspan></tspan>
-<tspan x="445" y="390"><tspan class="dots">. </tspan><tspan class="key">Status</tspan><tspan class="text">:</tspan><tspan class="dots"> ............. </tspan><tspan class="value">Open to work · remote · relocation</tspan></tspan>
-<tspan x="445" y="410"><tspan class="dots">.</tspan></tspan>
-<tspan x="445" y="430"><tspan class="text">- GitHub Stats </tspan><tspan class="text">———————————————————————————————————————————</tspan></tspan>
-<tspan x="445" y="450"><tspan class="dots">. </tspan><tspan class="key">Repos</tspan><tspan class="text">:</tspan><tspan class="dots"> .... </tspan><tspan class="value">11</tspan><tspan class="text"> {</tspan><tspan class="key">Contributed</tspan><tspan class="text">: </tspan><tspan class="value">5</tspan><tspan class="text">}</tspan><tspan class="text"> | </tspan><tspan class="key">Stars</tspan><tspan class="text">:</tspan><tspan class="dots"> ............. </tspan><tspan class="value">0</tspan></tspan>
-<tspan x="445" y="470"><tspan class="dots">. </tspan><tspan class="key">Commits</tspan><tspan class="text">:</tspan><tspan class="dots"> .................. </tspan><tspan class="value">119</tspan><tspan class="text"> | </tspan><tspan class="key">Followers</tspan><tspan class="text">:</tspan><tspan class="dots"> ......... </tspan><tspan class="value">1</tspan></tspan>
-<tspan x="445" y="490"><tspan class="dots">. </tspan><tspan class="key">Lines of Code on GitHub</tspan><tspan class="text">:</tspan><tspan class="dots"> . </tspan><tspan class="value">76,687</tspan><tspan class="text"> ( </tspan><tspan class="add">92,152++</tspan><tspan class="text">, </tspan><tspan class="dele">15,465--</tspan><tspan class="text"> )</tspan></tspan>
-<tspan x="445" y="530"><tspan class="accent">&gt;</tspan> <tspan class="accent cursor">█</tspan></tspan>
+<tspan x="445" y="390"><tspan class="dots">. </tspan><tspan class="key">LinkedIn</tspan><tspan class="text">:</tspan><tspan class="dots"> ..................................... </tspan><tspan class="value">jordyr86</tspan></tspan>
+<tspan x="445" y="410"><tspan class="dots">. </tspan><tspan class="key">Status</tspan><tspan class="text">:</tspan><tspan class="dots"> ............. </tspan><tspan class="value">Open to work · remote · relocation</tspan></tspan>
+<tspan x="445" y="430"><tspan class="dots">.</tspan></tspan>
+<tspan x="445" y="450"><tspan class="text">- GitHub Stats </tspan><tspan class="text">———————————————————————————————————————————</tspan></tspan>
+<tspan x="445" y="470"><tspan class="dots">. </tspan><tspan class="key">Repos</tspan><tspan class="text">:</tspan><tspan class="dots"> .... </tspan><tspan class="value">11</tspan><tspan class="text"> {</tspan><tspan class="key">Contributed</tspan><tspan class="text">: </tspan><tspan class="value">5</tspan><tspan class="text">}</tspan><tspan class="text"> | </tspan><tspan class="key">Stars</tspan><tspan class="text">:</tspan><tspan class="dots"> ............. </tspan><tspan class="value">0</tspan></tspan>
+<tspan x="445" y="490"><tspan class="dots">. </tspan><tspan class="key">Commits</tspan><tspan class="text">:</tspan><tspan class="dots"> .................. </tspan><tspan class="value">119</tspan><tspan class="text"> | </tspan><tspan class="key">Followers</tspan><tspan class="text">:</tspan><tspan class="dots"> ......... </tspan><tspan class="value">1</tspan></tspan>
+<tspan x="445" y="510"><tspan class="dots">. </tspan><tspan class="key">Lines of Code on GitHub</tspan><tspan class="text">:</tspan><tspan class="dots"> . </tspan><tspan class="value">76,687</tspan><tspan class="text"> ( </tspan><tspan class="add">92,152++</tspan><tspan class="text">, </tspan><tspan class="dele">15,465--</tspan><tspan class="text"> )</tspan></tspan>
+<tspan x="445" y="550"><tspan class="accent">&gt;</tspan> <tspan class="accent cursor">█</tspan></tspan>
 </text></svg>
