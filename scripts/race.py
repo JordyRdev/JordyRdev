@@ -187,26 +187,67 @@ def _gate(c):
     return "".join(g)
 
 
-def _car():
-    """Rear view of a generic pixel sports car, centred on x=0, tyres on y=0."""
-    r = [
-        ("#111", -62, -16, 26, 16), ("#111", 36, -16, 26, 16),                 # tyres
-        ("#b3121f", -66, -50, 132, 36), ("#d81b2c", -60, -64, 120, 18),        # body
-        ("#7d0d17", -66, -18, 132, 6),                                          # diffuser
-        ("#1d2433", -40, -82, 80, 20), ("#3a4a66", -34, -78, 68, 6),            # rear window
-        ("#d81b2c", -46, -86, 92, 6),                                           # roof
-        ("#ffcf3f", -62, -46, 28, 9), ("#ffcf3f", 34, -46, 28, 9),              # tail lights
-        ("#ff5a3c", -62, -37, 28, 4), ("#ff5a3c", 34, -37, 28, 4),
-        ("#f2f2f2", -20, -36, 40, 12),                                          # plate
-        ("#555", -50, -14, 10, 5), ("#555", 40, -14, 10, 5),                   # exhausts
-        ("#111", -72, -64, 144, 6),                                             # spoiler
-        ("#111", -60, -70, 6, 8), ("#111", 54, -70, 6, 8),
-    ]
-    g = ['<g shape-rendering="crispEdges">',
-         '<ellipse cx="0" cy="2" rx="78" ry="7" fill="#000" opacity="0.35"/>']
-    g += [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{col}"/>' for col, x, y, w, h in r]
-    g.append('<text x="0" y="-27" font-size="9" font-weight="bold" text-anchor="middle" fill="#111">JRDEV</text>')
-    g.append("</g>")
+def _car(flame_anim=""):
+    """Rear view of an original mid-engine supercar, centred on x=0, tyres on y=0."""
+    g = ['<g>',
+         '<defs><linearGradient id="paint" x1="0" y1="0" x2="0" y2="1">'
+         '<stop offset="0" stop-color="#ff3b3b"/><stop offset="0.55" stop-color="#d4101e"/>'
+         '<stop offset="1" stop-color="#7a0610"/></linearGradient>'
+         '<linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">'
+         '<stop offset="0" stop-color="#5b6f93"/><stop offset="1" stop-color="#0e1422"/></linearGradient>'
+         '<filter id="glow" x="-50%" y="-200%" width="200%" height="500%">'
+         '<feGaussianBlur stdDeviation="3"/></filter></defs>',
+         # ground shadow
+         '<ellipse cx="0" cy="3" rx="102" ry="8" fill="#000" opacity="0.45"/>',
+         # fat rear tyres
+         '<rect x="-96" y="-30" width="38" height="31" rx="5" fill="#0b0b0e"/>',
+         '<rect x="58" y="-30" width="38" height="31" rx="5" fill="#0b0b0e"/>',
+         '<rect x="-92" y="-27" width="30" height="3" fill="#2a2a30"/>',
+         '<rect x="62" y="-27" width="30" height="3" fill="#2a2a30"/>',
+         # main body: wide hips tapering up to a narrow cabin
+         '<path d="M-100,-14 L-100,-40 Q-98,-58 -78,-62 L-46,-66 Q-36,-86 -24,-90 L24,-90 '
+         'Q36,-86 46,-66 L78,-62 Q98,-58 100,-40 L100,-14 Z" fill="url(#paint)"/>',
+         # shoulder highlights
+         '<path d="M-92,-50 Q-88,-58 -70,-60 L-48,-63" fill="none" stroke="#ff8a8a" stroke-width="2" opacity="0.7"/>',
+         '<path d="M92,-50 Q88,-58 70,-60 L48,-63" fill="none" stroke="#ff8a8a" stroke-width="2" opacity="0.7"/>',
+         # cabin glass
+         '<path d="M-38,-68 Q-30,-84 -20,-86 L20,-86 Q30,-84 38,-68 Z" fill="url(#glass)"/>',
+         '<path d="M-26,-82 L-6,-82 L-14,-72 L-30,-72 Z" fill="#ffffff" opacity="0.18"/>',
+         # engine-cover louvres
+         *[f'<rect x="-34" y="{-64 + i * 4}" width="68" height="2" fill="#5c0710"/>' for i in range(3)],
+         # side intakes
+         '<path d="M-100,-44 L-80,-48 L-80,-30 L-100,-28 Z" fill="#14070a"/>',
+         '<path d="M100,-44 L80,-48 L80,-30 L100,-28 Z" fill="#14070a"/>',
+         # big rear wing on two struts
+         '<rect x="-46" y="-80" width="5" height="16" fill="#16161a"/>',
+         '<rect x="41" y="-80" width="5" height="16" fill="#16161a"/>',
+         '<path d="M-98,-88 L98,-88 L94,-79 L-94,-79 Z" fill="#16161a"/>',
+         '<rect x="-96" y="-88" width="192" height="2" fill="#4a4a55"/>',
+         '<rect x="-100" y="-92" width="7" height="16" rx="2" fill="#16161a"/>',
+         '<rect x="93" y="-92" width="7" height="16" rx="2" fill="#16161a"/>',
+         # full-width LED light bar with glow
+         '<rect x="-94" y="-55" width="188" height="11" rx="3" fill="#0a0507"/>',
+         '<rect x="-88" y="-51" width="176" height="4" rx="2" fill="#ff1f35" filter="url(#glow)"/>',
+         '<rect x="-88" y="-51" width="176" height="3" rx="1.5" fill="#ff4d5e"/>',
+         '<rect x="-88" y="-51" width="34" height="3" rx="1.5" fill="#ffe0e3"/>',
+         '<rect x="54" y="-51" width="34" height="3" rx="1.5" fill="#ffe0e3"/>',
+         # rear panel + plate
+         '<rect x="-60" y="-41" width="120" height="15" fill="#1a0a0d" opacity="0.5"/>',
+         '<rect x="-21" y="-41" width="42" height="12" rx="1" fill="#f2f2f2"/>',
+         '<text x="0" y="-31.5" font-size="9" font-weight="bold" text-anchor="middle" fill="#111">JRDEV</text>',
+         # diffuser with fins
+         '<path d="M-84,-14 L84,-14 L76,-2 L-76,-2 Z" fill="#0d0d10"/>',
+         *[f'<rect x="{x}" y="-14" width="3" height="12" fill="#2b2b33"/>' for x in (-60, -40, 37, 57)],
+         # twin centre exhausts + flames
+         '<circle cx="-12" cy="-9" r="6" fill="#3d3d45"/><circle cx="-12" cy="-9" r="3.5" fill="#050505"/>',
+         '<circle cx="12" cy="-9" r="6" fill="#3d3d45"/><circle cx="12" cy="-9" r="3.5" fill="#050505"/>',
+         f'<g opacity="0">{flame_anim}'
+         '<g><animateTransform attributeName="transform" type="scale" dur="0.12s" repeatCount="indefinite" '
+         'calcMode="discrete" values="1 1;1 1.35;1 0.85" additive="sum"/>'
+         '<ellipse cx="-12" cy="-1" rx="4.5" ry="6" fill="#ff8a1f"/><ellipse cx="-12" cy="-1" rx="2.2" ry="3.5" fill="#fff1a8"/>'
+         '<ellipse cx="12" cy="-1" rx="4.5" ry="6" fill="#ff8a1f"/><ellipse cx="12" cy="-1" rx="2.2" ry="3.5" fill="#fff1a8"/>'
+         '</g></g>',
+         '</g>']
     return "".join(g)
 
 
@@ -370,7 +411,9 @@ def render_race(theme, stats, width, user):
                f'<animateTransform attributeName="transform" type="translate" dur="{cyc:.2f}s" repeatCount="indefinite" '
                f'keyTimes="{";".join(_f(k) for k in kt)}" values="{";".join(f"{v:.0f} 0" for v in vals)}"/>'
                f'<g><animateTransform attributeName="transform" type="translate" dur="0.18s" repeatCount="indefinite" '
-               f'calcMode="discrete" values="0 0;0 -1.5"/>{_car()}</g></g></g>')
+               f'calcMode="discrete" values="0 0;0 -1.5"/>'
+               f'{_car(_visibility_anim([(START_T - 0.2, 1), (START_T + ACC_T + 0.6, 0), (m.tf - 0.3, 1), (m.tf + 0.4, 0)], cyc))}'
+               f'</g></g></g>')
 
     for t, n, lane in collects:   # "+N" popups
         k1, k2 = t / cyc, min(0.999, (t + 0.6) / cyc)
