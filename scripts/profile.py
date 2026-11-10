@@ -47,6 +47,7 @@ INFO = [
     "Contact",
     ("Email", "jordydev@proton.me"),
     ("GitHub", "JordyRdev"),
+    ("LinkedIn", "jordyr86"),
     ("Status", "Open to work · remote · relocation"),
     None,
     "GitHub Stats",
@@ -55,6 +56,7 @@ INFO = [
 
 BUTTONS = [
     ("projects", "PROJECTS", f"https://github.com/{USER}?tab=repositories"),
+    ("linkedin", "LINKEDIN", "https://www.linkedin.com/in/jordyr86/"),
     ("email", "EMAIL", "mailto:jordydev@proton.me"),
 ]
 
@@ -306,6 +308,8 @@ def render_card(theme, stats):
 ICONS = {
     # 24x24 stroke icons
     "email": '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 7l10 7 10-7"/>',
+    "linkedin": '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>'
+                '<path d="M3 13h18"/>',
     "projects": '<path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>'
                 '<path d="M9 13l2 2 4-4"/>',
 }
@@ -313,7 +317,7 @@ ICONS = {
 
 def render_button(theme, icon, label):
     t = THEMES[theme]
-    w, h = 470, 56
+    w, h = 310, 56
     text_w = len(label) * 10.8
     gx = (w - (28 + 14 + text_w)) / 2
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
