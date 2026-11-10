@@ -19,6 +19,8 @@ import urllib.request
 from html import escape
 from pathlib import Path
 
+from race import render_race
+
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
 
@@ -116,10 +118,18 @@ def gql(token, query, variables):
 def fetch_stats(token):
     d = gql(token, """query($login:String!){ user(login:$login){
         id followers{totalCount}
+        contributionsCollection{ contributionCalendar{ totalContributions
+          weeks{ contributionDays{ date weekday contributionCount contributionLevel } } } }
         repositoriesContributedTo(includeUserRepositories:false,
           contributionTypes:[COMMIT,PULL_REQUEST,REPOSITORY,PULL_REQUEST_REVIEW]){totalCount}
     }}""", {"login": USER})["user"]
     uid = d["id"]
+    levels = {"NONE": 0, "FIRST_QUARTILE": 1, "SECOND_QUARTILE": 2, "THIRD_QUARTILE": 3, "FOURTH_QUARTILE": 4}
+    cal = d["contributionsCollection"]["contributionCalendar"]
+    calendar = {"total": cal["totalContributions"],
+                "start": cal["weeks"][0]["contributionDays"][0]["date"],
+                "weeks": [[[x["weekday"], x["contributionCount"], levels.get(x["contributionLevel"], 0)]
+                           for x in w["contributionDays"]] for w in cal["weeks"]]}
     stats = {"followers": d["followers"]["totalCount"],
              "contributed": d["repositoriesContributedTo"]["totalCount"],
              "repos": 0, "stars": 0, "commits": 0, "additions": 0, "deletions": 0}
@@ -157,6 +167,7 @@ def fetch_stats(token):
                 break
             time.sleep(4)
     stats["tests"] = fetch_tests(token, repos)
+    stats["calendar"] = calendar
     stats["updated"] = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
     return stats
 
@@ -517,6 +528,7 @@ def main():
         (ASSETS / f"card-{theme}.svg").write_text(render_card(theme, stats))
         (ASSETS / f"tests-{theme}.svg").write_text(render_tests(theme, stats))
         (ASSETS / f"typing-{theme}.svg").write_text(render_typing(theme))
+        (ASSETS / f"race-{theme}.svg").write_text(render_race(theme, stats, card_width(), USER))
         for icon, label, _ in BUTTONS:
             (ASSETS / f"btn-{icon}-{theme}.svg").write_text(render_button(theme, icon, label))
     print("rendered", ", ".join(sorted(p.name for p in ASSETS.glob("*.svg"))))
