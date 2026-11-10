@@ -54,6 +54,12 @@ INFO = [
     "STATS",
 ]
 
+TAGLINES = [
+    "Senior QA & Data Quality Consultant",
+    "15+ years experience in BI, data quality, and test automation",
+    "Open to freelance work",
+]
+
 BUTTONS = [
     ("projects", "PROJECTS", f"https://github.com/{USER}?tab=repositories"),
     ("linkedin", "LINKEDIN", "https://www.linkedin.com/in/jordyr86/"),
@@ -123,8 +129,8 @@ def fetch_stats(token):
         page = gql(token, """query($login:String!,$id:ID!,$after:String){ user(login:$login){
             repositories(ownerAffiliations:OWNER, first:50, after:$after){
               totalCount pageInfo{hasNextPage endCursor}
-              nodes{ name isFork stargazerCount
-                defaultBranchRef{ target{ ... on Commit { history(author:{id:$id}){totalCount} } } } }
+              nodes{ name isFork isPrivate stargazerCount
+                defaultBranchRef{ name target{ ... on Commit { history(author:{id:$id}){totalCount} } } } }
         }}}""", {"login": USER, "id": uid, "after": cursor})["user"]["repositories"]
         stats["repos"] = page["totalCount"]
         repos += page["nodes"]
@@ -150,8 +156,41 @@ def fetch_stats(token):
                         stats["deletions"] += sum(w["d"] for w in c["weeks"])
                 break
             time.sleep(4)
+    stats["tests"] = fetch_tests(token, repos)
     stats["updated"] = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
     return stats
+
+
+def _ts(s):
+    return dt.datetime.fromisoformat(s.replace("Z", "+00:00"))
+
+
+def fetch_tests(token, repos):
+    """Latest completed run of each workflow on the default branch of every
+    public, non-fork repo (the profile repo itself is skipped)."""
+    results = []
+    for r in sorted(repos, key=lambda r: r["name"].lower()):
+        if r["isFork"] or r.get("isPrivate") or r["name"].lower() == USER.lower():
+            continue
+        branch = (r.get("defaultBranchRef") or {}).get("name")
+        if not branch:
+            continue
+        try:
+            _, body = _req(f"{API}/repos/{USER}/{r['name']}/actions/runs?per_page=30"
+                           f"&branch={branch}&status=completed&exclude_pull_requests=true", token)
+        except Exception as e:  # one broken repo shouldn't break the card
+            print("skip", r["name"], e)
+            continue
+        seen = set()
+        for run in (body or {}).get("workflow_runs", []):
+            if run.get("event") == "pull_request" or run["name"] in seen:
+                continue
+            seen.add(run["name"])
+            secs = max(0, int((_ts(run["updated_at"]) - _ts(run["run_started_at"])).total_seconds()))
+            results.append({"repo": r["name"], "workflow": run["name"],
+                            "conclusion": run.get("conclusion") or "skipped",
+                            "seconds": secs, "finished": run["updated_at"]})
+    return results
 
 
 def load_stats():
@@ -332,6 +371,139 @@ def render_button(theme, icon, label):
             f'fill="{t["text"]}">{label}</text></svg>')
 
 
+def card_width():
+    art = [a.rstrip() for a in (ASSETS / "ascii.txt").read_text().split("\n")]
+    cols = max(len(a) for a in art)
+    return int(20 + cols * ART_CHAR_W + 28 + WIDTH * CHAR_W + 20)
+
+
+def _dur(secs):
+    m, s_ = divmod(int(secs), 60)
+    return f"{m}m {s_:02d}s" if m else f"{s_}s"
+
+
+def render_tests(theme, stats):
+    """Playwright-style test report of the latest CI runs across your repos."""
+    t = THEMES[theme]
+    w = card_width()
+    pad = 20
+    cols = int((w - 2 * pad) / CHAR_W)
+    tests = stats.get("tests") or []
+    passed = sum(x["conclusion"] == "success" for x in tests)
+    failed = sum(x["conclusion"] in ("failure", "timed_out", "startup_failure") for x in tests)
+    skipped = len(tests) - passed - failed
+    repos = len({x["repo"] for x in tests})
+    total = sum(x["seconds"] for x in tests)
+    upd = stats.get("updated", "")[:16].replace("T", " ")
+
+    lines = []  # list of (symbol, symbol_class, segments)
+    head = "$ run-tests --owner " + USER
+    right = f"{upd} UTC" if upd else ""
+    lines.append((None, None, [(head, "accent"), (" " * max(1, cols - len(head) - len(right)), "text"),
+                               (right, "dots")]))
+    lines.append((None, None, [(f"Running {len(tests)} checks across {repos} repositories", "text")]))
+    lines.append((None, None, []))
+    status_w = 15
+    for x in tests:
+        ok = x["conclusion"] == "success"
+        bad = x["conclusion"] in ("failure", "timed_out", "startup_failure")
+        sym, cls = ("✓", "add") if ok else ("✘", "dele") if bad else ("-", "dots")
+        word = "passed" if ok else "failed" if bad else x["conclusion"].replace("_", " ")
+        name = f"{x['repo']} › {x['workflow']}"
+        tail = f"{word:>7}  {_dur(x['seconds']):>7}"
+        room = cols - 4 - len(tail) - 2
+        if len(name) > room - 4:
+            name = name[: room - 5] + "…"
+        dots = " " + "." * max(1, room - len(name) - 1) + " "
+        rp, sep, wf = name.partition(" › ")
+        lines.append((sym, cls, [(rp, "value"), (sep, "dots"), (wf, "text"),
+                                 (dots, "dots"), (f"{word:>7}", cls), (f"  {_dur(x['seconds']):>7}", "dots")]))
+    if not tests:
+        lines.append((None, None, [("  no CI runs found yet", "dots")]))
+    lines.append((None, None, []))
+    summary = [(f"{passed} passed", "add"), (" · ", "dots"), (f"{failed} failed", "dele" if failed else "dots"),
+               (" · ", "dots"), (f"{skipped} skipped", "dots")]
+    stext = sum(len(a) for a, _ in summary)
+    dur = f"Total: {_dur(total)}"
+    lines.append((None, None, summary + [(" " * max(1, cols - 2 - stext - len(dur)), "text"), (dur, "dots")]))
+
+    h = int(pad * 2 + len(lines) * LINE_H)
+    out = [f'<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" font-family="ConsolasFallback,Consolas,'
+           f'\'DejaVu Sans Mono\',monospace" width="{w}px" height="{h}px" font-size="{FONT_SIZE}px">',
+           "<style>",
+           "@font-face{src:local('Consolas'),local('Consolas Bold');font-family:'ConsolasFallback';"
+           "font-display:swap;-webkit-size-adjust:109%;size-adjust:109%;}",
+           *[f".{c}{{fill:{t[c]};}}" for c in ("text", "key", "value", "dots", "add", "dele", "accent")],
+           "</style>",
+           f'<rect width="{w}px" height="{h}px" fill="{t["bg"]}" rx="15"/>']
+    for i, (sym, scls, segs) in enumerate(lines):
+        y = pad + 15 + i * LINE_H
+        indent = 0
+        if sym:
+            out.append(f'<text x="{pad + 2 * CHAR_W:.1f}" y="{y}" class="{scls}">{sym}</text>')
+            indent = 4
+        spans = "".join(f'<tspan class="{c}">{escape(a)}</tspan>' for a, c in segs if a)
+        if spans:
+            out.append(f'<text x="{pad + indent * CHAR_W:.1f}" y="{y}" class="text">{spans}</text>')
+    out.append("</svg>")
+    return "\n".join(out)
+
+
+def render_typing(theme):
+    """Terminal-style typing header that cycles through TAGLINES."""
+    t = THEMES[theme]
+    size, cw = 22, 13.24           # font size and forced advance per character
+    w, h = card_width(), 44
+    x0 = 20 + 2 * cw              # room for the '> ' prompt
+    type_t, hold_t, erase_t, gap_t = 0.055, 2.2, 0.025, 0.4   # seconds
+    spans = []
+    for ln in TAGLINES:
+        n = len(ln)
+        spans.append((ln, n, n * type_t, n * erase_t))
+    cycle = sum(a + hold_t + b + gap_t for _, _, a, b in spans)
+    out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" '
+           f'font-family="Consolas,\'DejaVu Sans Mono\',monospace" font-size="{size}">',
+           f'<text x="20" y="30" fill="{t["accent"]}">&gt;</text>']
+    start = 0.0
+    for i, (ln, n, a, b) in enumerate(spans):
+        # stepped clip width: 0 -> full (typing) -> hold -> full -> 0 (erasing) -> hidden
+        times, widths = [0.0], [0.0]
+        if start > 0:
+            times.append(start / cycle); widths.append(0.0)
+        for k in range(1, n + 1):
+            times.append((start + k * (a / n)) / cycle); widths.append(k * cw)
+        t_hold_end = start + a + hold_t
+        times.append(t_hold_end / cycle); widths.append(n * cw)
+        for k in range(n - 1, -1, -1):
+            times.append((t_hold_end + (n - k) * (b / n)) / cycle); widths.append(k * cw)
+        times.append(1.0); widths.append(0.0)
+        kt = ";".join(f"{v:.4f}" for v in times)
+        vals = ";".join(f"{v:.1f}" for v in widths)
+        out.append(f'<clipPath id="c{i}"><rect x="{x0:.1f}" y="0" height="{h}" width="0">'
+                   f'<animate attributeName="width" dur="{cycle:.2f}s" repeatCount="indefinite" '
+                   f'calcMode="discrete" keyTimes="{kt}" values="{vals}"/></rect></clipPath>')
+        out.append(f'<text x="{x0:.1f}" y="30" fill="{t["text"]}" textLength="{n * cw:.1f}" '
+                   f'lengthAdjust="spacingAndGlyphs" clip-path="url(#c{i})" xml:space="preserve">{escape(ln)}</text>')
+        # cursor follows the active line and is only visible while it's active
+        end = start + a + hold_t + b + gap_t
+        ot, ov = [0.0], [1 if start == 0 else 0]
+        if start > 0:
+            ot.append(start / cycle); ov.append(1)
+        if end < cycle - 1e-6:
+            ot.append(end / cycle); ov.append(0)
+        okt = ";".join(f"{v:.4f}" for v in ot)
+        ovals = ";".join(str(v) for v in ov)
+        cx = ";".join(f"{x0 + v:.1f}" for v in widths)
+        out.append(f'<rect y="10" width="{cw * 0.6:.1f}" height="26" fill="{t["accent"]}" x="{x0:.1f}" opacity="0">'
+                   f'<animate attributeName="x" dur="{cycle:.2f}s" repeatCount="indefinite" calcMode="discrete" '
+                   f'keyTimes="{kt}" values="{cx}"/>'
+                   f'<animate attributeName="opacity" dur="{cycle:.2f}s" repeatCount="indefinite" calcMode="discrete" '
+                   f'keyTimes="{okt}" values="{ovals}"/></rect>')
+        start += a + hold_t + b + gap_t
+    out.append("</svg>")
+    return "\n".join(out)
+
+
 def main():
     stats = load_stats()
     if "--fetch" in sys.argv:
@@ -343,6 +515,8 @@ def main():
         print("stats:", stats)
     for theme in THEMES:
         (ASSETS / f"card-{theme}.svg").write_text(render_card(theme, stats))
+        (ASSETS / f"tests-{theme}.svg").write_text(render_tests(theme, stats))
+        (ASSETS / f"typing-{theme}.svg").write_text(render_typing(theme))
         for icon, label, _ in BUTTONS:
             (ASSETS / f"btn-{icon}-{theme}.svg").write_text(render_button(theme, icon, label))
     print("rendered", ", ".join(sorted(p.name for p in ASSETS.glob("*.svg"))))

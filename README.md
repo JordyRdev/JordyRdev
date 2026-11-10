@@ -1,3 +1,9 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/typing-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/typing-light.svg">
+  <img alt="Senior QA & Data Quality Consultant · 15+ years experience in BI, data quality, and test automation · Open to freelance work" src="assets/typing-dark.svg" width="100%">
+</picture>
+
 <a href="https://github.com/JordyRdev">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/card-dark.svg">
@@ -11,6 +17,14 @@
   <a href="https://www.linkedin.com/in/jordyr86/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/btn-linkedin-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/btn-linkedin-light.svg"><img alt="LinkedIn" src="assets/btn-linkedin-dark.svg" width="32%"></picture></a>
   <a href="mailto:jordydev@proton.me"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/btn-email-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/btn-email-light.svg"><img alt="Email" src="assets/btn-email-dark.svg" width="32%"></picture></a>
 </p>
+
+<a href="https://github.com/JordyRdev?tab=repositories">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/tests-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/tests-light.svg">
+  <img alt="Latest CI test results across my repositories" src="assets/tests-dark.svg" width="100%">
+</picture>
+</a>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JordyRdev/JordyRdev/output/pacman-contribution-graph-dark.svg">
