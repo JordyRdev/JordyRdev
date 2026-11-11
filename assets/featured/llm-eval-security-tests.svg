@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" font-family="Consolas,'DejaVu Sans Mono',monospace" xml:space="preserve">
+<rect width="800" height="450" rx="14" fill="#161b22"/>
+<path d="M0,14 a14,14 0 0 1 14,-14 h772 a14,14 0 0 1 14,14 v24 h-800 z" fill="#0d1117"/>
+<circle cx="22" cy="19" r="6" fill="#ff5f56"/><circle cx="42" cy="19" r="6" fill="#ffbd2e"/><circle cx="62" cy="19" r="6" fill="#27c93f"/>
+<text x="400.0" y="24" font-size="14" fill="#616e7f" text-anchor="middle">llm-eval-security-tests · nightly eval on main</text>
+<text x="28" y="80" font-size="21"><tspan fill="#ffa657">$ </tspan><tspan fill="#c9d1d9">eval --live</tspan><tspan fill="#616e7f">   # golden questions, reference SQL</tspan></text>
+<text x="28" y="112" font-size="21"><tspan fill="#616e7f">  accuracy ............ </tspan><tspan fill="#a5d6ff">40/40</tspan><tspan fill="#3fb950">   ✓</tspan></text>
+<text x="28" y="144" font-size="21"><tspan fill="#616e7f">  made-up content ..... </tspan><tspan fill="#a5d6ff">0%</tspan><tspan fill="#3fb950">      ✓</tspan></text>
+<text x="28" y="176" font-size="21"><tspan fill="#616e7f">  faithfulness ........ </tspan><tspan fill="#a5d6ff">1.00</tspan><tspan fill="#3fb950">    ✓</tspan><tspan fill="#616e7f">  target 0.85</tspan></text>
+<rect x="28" y="196" width="744" height="1" fill="#30363d"/>
+<text x="28" y="222" font-size="21"><tspan fill="#ffa657">OWASP Top 10 for LLM Applications 2026</tspan></text>
+<text x="28" y="254" font-size="21"><tspan fill="#3fb950">  ✓ </tspan><tspan fill="#c9d1d9">prompt injection, direct and indirect</tspan></text>
+<text x="28" y="286" font-size="21"><tspan fill="#3fb950">  ✓ </tspan><tspan fill="#c9d1d9">data leakage between roles</tspan></text>
+<text x="28" y="318" font-size="21"><tspan fill="#3fb950">  ✓ </tspan><tspan fill="#c9d1d9">system prompt leakage · excessive agency</tspan></text>
+<text x="28" y="350" font-size="21"><tspan fill="#3fb950">  ✓ </tspan><tspan fill="#c9d1d9">unbounded consumption · output handling</tspan></text>
+<text x="28" y="382" font-size="21"><tspan fill="#616e7f">replay suite: </tspan><tspan fill="#a5d6ff">19 files · 256 tests</tspan><tspan fill="#616e7f"> on every PR</tspan></text>
+</svg>
