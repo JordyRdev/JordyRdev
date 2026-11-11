@@ -1,11 +1,11 @@
 {
   "followers": 1,
   "contributed": 5,
-  "repos": 11,
+  "repos": 12,
   "stars": 0,
-  "commits": 129,
-  "additions": 95009,
-  "deletions": 16886,
+  "commits": 151,
+  "additions": 192528,
+  "deletions": 21563,
   "tests": [
     {
       "repo": "llm-eval-security-tests",
@@ -32,12 +32,12 @@
       "repo": "powerbi-dashboard-playwright",
       "workflow": "CI",
       "conclusion": "success",
-      "seconds": 274,
-      "finished": "2026-11-10T13:41:03Z"
+      "seconds": 238,
+      "finished": "2026-11-10T22:29:28Z"
     }
   ],
   "calendar": {
-    "total": 227,
+    "total": 251,
     "start": "2025-11-09",
     "weeks": [
       [
@@ -1977,11 +1977,16 @@
         ],
         [
           2,
-          15,
+          25,
+          4
+        ],
+        [
+          3,
+          14,
           2
         ]
       ]
     ]
   },
-  "updated": "2026-11-10T20:39:25+00:00"
+  "updated": "2026-11-11T08:08:36+00:00"
 }
