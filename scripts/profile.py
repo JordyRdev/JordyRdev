@@ -72,22 +72,23 @@ WIDTH = 58          # characters in each info line
 FONT_SIZE = 16
 CHAR_W = 9.63       # approx. advance of a 16px monospace glyph
 LINE_H = 20
-ART_FONT = 11       # portrait uses a smaller font for more detail
-ART_CHAR_W = 6.62
-ART_LINE_H = 13.4
+ART_FONT = 9        # portrait uses a smaller font for more detail
+ART_CHAR_W = 5.42
+ART_LINE_H = 11.0
 
 # density ramp used by the portrait (dark -> bright on a dark background).
 # In light mode the ramp is reversed so the portrait isn't a photo-negative.
 RAMP = " .'`^,:;-~=+*xjk%#&$@"
+INVERT_ART_IN_LIGHT = True    # True suits a lit face; False suits a silhouette against the sky
 
 THEMES = {
     "dark": dict(bg="#161b22", border="#30363d", text="#c9d1d9", key="#ffa657",
                  value="#a5d6ff", dots="#616e7f", add="#3fb950", dele="#f85149",
-                 art="#c9d1d9", accent="#ffa657", typing="#c9d1d9",
+                 art="#c9d1d9", accent="#ffa657", typing="#c9d1d9", shoe="#ff3b30",
                  btn_bg="#161b22", btn_border="#30363d", btn_icon="#ffa657", btn_text="#c9d1d9", btn_bar="#ffa657"),
     "light": dict(bg="#f6f8fa", border="#d0d7de", text="#24292f", key="#e8590c",
                   value="#0a3069", dots="#c2cfde", add="#1a7f37", dele="#cf222e",
-                  art="#24292f", accent="#e8590c", typing="#ffa657",
+                  art="#24292f", accent="#e8590c", typing="#ffa657", shoe="#e5251b",
                   btn_bg="#ffffff", btn_border="#ffa657", btn_icon="#e8590c", btn_text="#24292f", btn_bar="#ffa657"),
 }
 
@@ -313,13 +314,25 @@ def build_info(stats):
 def render_card(theme, stats):
     t = THEMES[theme]
     art = [a.rstrip() for a in (ASSETS / "ascii.txt").read_text().split("\n")]
+    # optional colour accents: assets/ascii.<colour> lists "row,col" cells drawn in that colour
+    colour_of = {"accent": t["accent"], "red": t["shoe"]}
+    painted = {}
+    for name, fill in colour_of.items():
+        f = ASSETS / f"ascii.{name}"
+        if f.exists():
+            for rc in f.read_text().split():
+                painted[tuple(map(int, rc.split(",")))] = fill
+    skipped = 0
     while art and not art[0]:
         art.pop(0)
+        skipped += 1
+    painted = {(r - skipped, c): v for (r, c), v in painted.items()}
+    if theme == "light" and INVERT_ART_IN_LIGHT:   # flip shading, but keep coloured cells as drawn
+        rev = {c: RAMP[len(RAMP) - i] for i, c in enumerate(RAMP) if i}
+        art = ["".join(ch if (i, c) in painted else rev.get(ch, ch) for c, ch in enumerate(a)) for i, a in enumerate(art)]
     while art and not art[-1]:
         art.pop()
-    if theme == "light":
-        rev = {c: RAMP[len(RAMP) - i] for i, c in enumerate(RAMP) if i}
-        art = ["".join(rev.get(c, c) for c in a) for a in art]
+
     info = build_info(stats)
     art_cols = max(len(a) for a in art)
     pad = 20
@@ -344,7 +357,21 @@ def render_card(theme, stats):
     art_top = pad + 10 + max(0, (h - 2 * pad - art_h) / 2)  # vertically centred
     out.append(f'<text x="{pad}" y="{art_top:.1f}" class="art" font-size="{ART_FONT}px">')
     for i, line in enumerate(art):
-        out.append(f'<tspan x="{pad}" y="{art_top + i * ART_LINE_H:.1f}">{escape(line)}</tspan>')
+        if not any((i, c) in painted for c in range(len(line))):
+            out.append(f'<tspan x="{pad}" y="{art_top + i * ART_LINE_H:.1f}">{escape(line)}</tspan>')
+            continue
+        parts, cur, cur_fill = [], "", None   # split the line into runs of the same colour
+        for c, ch in enumerate(line):
+            fill = painted.get((i, c))
+            if fill != cur_fill and cur:
+                parts.append((cur, cur_fill))
+                cur = ""
+            cur += ch
+            cur_fill = fill
+        parts.append((cur, cur_fill))
+        spans = "".join(f'<tspan fill="{f}" font-weight="bold">{escape(p)}</tspan>' if f else escape(p)
+                        for p, f in parts)
+        out.append(f'<tspan x="{pad}" y="{art_top + i * ART_LINE_H:.1f}">{spans}</tspan>')
     out.append("</text>")
     out.append(f'<text x="{info_x:.0f}" y="{pad + 10}" class="text">')
     for i, line in enumerate(info):
