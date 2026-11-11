@@ -83,10 +83,12 @@ RAMP = " .'`^,:;-~=+*xjk%#&$@"
 THEMES = {
     "dark": dict(bg="#161b22", border="#30363d", text="#c9d1d9", key="#ffa657",
                  value="#a5d6ff", dots="#616e7f", add="#3fb950", dele="#f85149",
-                 art="#c9d1d9", accent="#ffa657"),
-    "light": dict(bg="#f6f8fa", border="#d0d7de", text="#24292f", key="#953800",
+                 art="#c9d1d9", accent="#ffa657", typing="#c9d1d9",
+                 btn_bg="#161b22", btn_border="#30363d", btn_icon="#ffa657", btn_text="#c9d1d9", btn_bar="#ffa657"),
+    "light": dict(bg="#f6f8fa", border="#d0d7de", text="#24292f", key="#e8590c",
                   value="#0a3069", dots="#c2cfde", add="#1a7f37", dele="#cf222e",
-                  art="#24292f", accent="#953800"),
+                  art="#24292f", accent="#e8590c", typing="#ffa657",
+                  btn_bg="#ffffff", btn_border="#ffa657", btn_icon="#e8590c", btn_text="#24292f", btn_bar="#ffa657"),
 }
 
 # --------------------------------------------------------------------------- #
@@ -372,14 +374,14 @@ def render_button(theme, icon, label):
     gx = (w - (28 + 14 + text_w)) / 2
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
             f'font-family="Consolas,\'DejaVu Sans Mono\',monospace">'
-            f'<rect x="1" y="1" width="{w - 2}" height="{h - 2}" rx="6" fill="{t["bg"]}" '
-            f'stroke="{t["border"]}" stroke-width="2"/>'
-            f'<rect x="1" y="{h - 4}" width="{w - 2}" height="3" fill="{t["accent"]}"/>'
+            f'<rect x="1" y="1" width="{w - 2}" height="{h - 2}" rx="6" fill="{t["btn_bg"]}" '
+            f'stroke="{t["btn_border"]}" stroke-width="2"/>'
+            f'<rect x="1" y="{h - 5}" width="{w - 2}" height="4" fill="{t["btn_bar"]}"/>'
             f'<g transform="translate({gx:.0f},{(h - 28) / 2 - 1:.0f}) scale(1.17)" fill="none" '
-            f'stroke="{t["accent"]}" stroke-width="1.8" stroke-linecap="round" '
+            f'stroke="{t["btn_icon"]}" stroke-width="2" stroke-linecap="round" '
             f'stroke-linejoin="round">{ICONS[icon]}</g>'
             f'<text x="{gx + 42:.0f}" y="{h / 2 + 5:.0f}" font-size="18" letter-spacing="1" '
-            f'fill="{t["text"]}">{label}</text></svg>')
+            f'fill="{t["btn_text"]}" font-weight="bold">{label}</text></svg>')
 
 
 def card_width():
@@ -493,7 +495,7 @@ def render_typing(theme):
         out.append(f'<clipPath id="c{i}"><rect x="{x0:.1f}" y="0" height="{h}" width="0">'
                    f'<animate attributeName="width" dur="{cycle:.2f}s" repeatCount="indefinite" '
                    f'calcMode="discrete" keyTimes="{kt}" values="{vals}"/></rect></clipPath>')
-        out.append(f'<text x="{x0:.1f}" y="30" fill="{t["text"]}" textLength="{n * cw:.1f}" '
+        out.append(f'<text x="{x0:.1f}" y="30" fill="{t["typing"]}" font-weight="{'bold' if theme == 'light' else 'normal'}" textLength="{n * cw:.1f}" '
                    f'lengthAdjust="spacingAndGlyphs" clip-path="url(#c{i})" xml:space="preserve">{escape(ln)}</text>')
         # cursor follows the active line and is only visible while it's active
         end = start + a + hold_t + b + gap_t
