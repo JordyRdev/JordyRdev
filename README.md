@@ -26,12 +26,6 @@
 </picture>
 </a>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/race-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/race-light.svg">
-  <img alt="Contribution Grand Prix: a retro race car drives through my contribution graph collecting every contribution" src="assets/race-dark.svg" width="100%">
-</picture>
-
 ## About me
 
 Data-driven, risk-based QA for financial systems, data migrations and digital transformation, with 15+ years of international experience in fintech, banking, energy and telecom. I bridge data engineering teams and business stakeholders, and I check that systems, data and AI-generated output actually do what they claim.
@@ -69,5 +63,13 @@ Data-driven, risk-based QA for financial systems, data migrations and digital tr
 
 **Certifications:** Microsoft Power BI Data Analyst (PL-300) · ISTQB Advanced Level Test Analyst · ISTQB Certified Tester · TMap NEXT
 **Availability:** Freelance / contract · remote · open to relocation
+
+### 🏁 Contribution Grand Prix
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/race-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/race-light.svg">
+  <img alt="Contribution Grand Prix: a retro race car drives through my contribution graph collecting every contribution" src="assets/race-dark.svg" width="100%">
+</picture>
 
 <sub>Card inspired by <a href="https://github.com/Andrew6rant/Andrew6rant">Andrew6rant</a> · regenerated daily by <code>scripts/profile.py</code></sub>

@@ -194,11 +194,11 @@ def _palm(c, x, lean, glow=False):
     return "".join(g)
 
 
-VEGAS_WORDS = ["CASINO", "777", "JACKPOT", "HOTEL", "LUCKY", "BAR", "SLOTS", "SHOW"]
+VEGAS_WORDS = ["TEST", "PASS", "DEPLOY", "QA", "SHIP IT", "DATA", "CI/CD", "100%"]
 
 
 def _neon_sign(c, x, k):
-    """Tall casino pylon with a marquee-bulb border and flickering neon word."""
+    """Tall neon pylon with a marquee-bulb border and a flickering QA-themed word."""
     y = CAM_H
     col = c["neon"][k % len(c["neon"])]
     col2 = c["neon"][(k + 2) % len(c["neon"])]
@@ -603,6 +603,8 @@ def render_race(theme, stats, width, user):
                    f'keyTimes="0;{_f(k1)};{_f(k2)};1" values="{y};{y};{y - 30};{y - 30}"/></text>')
 
     # ---- HUD --------------------------------------------------------------------------
+    out.append('<rect x="10" y="10" width="300" height="44" rx="8" fill="#000" opacity="0.45"/>')
+    out.append(f'<rect x="{width - 215}" y="10" width="205" height="44" rx="8" fill="#000" opacity="0.45"/>')
     out.append(f'<text x="22" y="30" font-size="16" font-weight="bold" fill="{c["accent"]}" {sh} '
                f'letter-spacing="2">1UP {escape(user.upper())}</text>')
     out.append(f'<text x="22" y="46" font-size="10" fill="{c["hud_dim"]}" {sh_sm} letter-spacing="1">'
