@@ -35,6 +35,25 @@ def crop(src, name):
     im.save(OUT / f"{name}.png", optimize=True)
 
 
+def crop_bands(src, name, bands):
+    """Stack horizontal slices of a tall screenshot into one 16:9 thumbnail."""
+    from PIL import Image, ImageDraw
+    im = Image.open(src).convert("RGB")
+    w = im.size[0]
+    parts = [im.crop((0, a, w, b)) for a, b in bands]
+    h = sum(p.size[1] for p in parts) + 2 * (len(parts) - 1)
+    out = Image.new("RGB", (w, h), (225, 228, 232))
+    y = 0
+    for p in parts:
+        out.paste(p, (0, y))
+        y += p.size[1] + 2
+    tmp = OUT / f".{name}.tmp.png"
+    OUT.mkdir(parents=True, exist_ok=True)
+    out.save(tmp)
+    crop(tmp, name)
+    tmp.unlink()
+
+
 def tile(name, title, lines):
     """lines: list of segment lists [(text, colour_key), ...]"""
     out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
@@ -59,6 +78,18 @@ def tile(name, title, lines):
 
 
 def tiles():
+    tile("more", "github.com/JordyRdev", [
+        [("$ ", "key"), ("ls ~/projects", "text")],
+        "---",
+        [("  payments-executive-powerbi/", "value")],
+        [("  llm-eval-security-tests/", "value")],
+        [("  playwright-typescript-portfolio/", "value")],
+        [("  powerbi-dashboard-playwright/", "value")],
+        [("  hr-analytics-powerbi-demo/", "value")],
+        [("  ...", "dim")],
+        "---",
+        [("  ▶ ", "key"), ("View all repositories", "text")],
+    ])
     tile("llm-eval-security-tests", "llm-eval-security-tests · nightly eval on main", [
         [("$ ", "key"), ("eval --live", "text"), ("   # golden questions, reference SQL", "dim")],
         [("  accuracy ............ ", "dim"), ("40/40", "value"), ("   ✓", "ok")],
@@ -84,23 +115,12 @@ def tiles():
         "---",
         [("  45 passed", "ok"), ("   HTML report published to GitHub Pages", "dim")],
     ])
-    tile("powerbi-dashboard-playwright", "powerbi-dashboard-playwright · test analytics", [
-        [("Playwright", "value"), (" ─▶ ", "dim"), ("GitHub Actions", "value"), (" ─▶ ", "dim"),
-         ("star schema", "value"), (" ─▶ ", "dim"), ("Power BI", "value")],
-        [("7 projects · 4 shards     every run on main is stored", "dim")],
-        "---",
-        [("The report answers:", "key")],
-        [("  ? ", "key"), ("Which tests are flaky?", "text")],
-        [("  ? ", "key"), ("Is the suite getting slower?", "text")],
-        [("  ? ", "key"), ("Is this release better than the last?", "text")],
-        "---",
-        [("  ✓ ", "ok"), ("5 report pages in Quality.pbip", "text")],
-        [("  ✓ ", "ok"), ("live Allure report on GitHub Pages", "text")],
-    ])
 
 
 if __name__ == "__main__":
-    if sys.argv[1:] == ["--tiles"]:
+    if sys.argv[1] == "--bands":    # --bands src name y0:y1,y2:y3
+        crop_bands(sys.argv[2], sys.argv[3], [tuple(map(int, b.split(":"))) for b in sys.argv[4].split(",")])
+    elif sys.argv[1:] == ["--tiles"]:
         tiles()
     else:
         crop(sys.argv[1], sys.argv[2])

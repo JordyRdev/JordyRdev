@@ -34,39 +34,45 @@ Data-driven, risk-based QA for financial systems, data migrations and digital tr
 
 <table>
 <tr>
-<td colspan="2" valign="top">
+<td width="50%" valign="top">
 <a href="https://github.com/JordyRdev/payments-executive-powerbi"><img src="assets/featured/payments-executive-powerbi.png" width="100%" alt="payments-executive-powerbi"></a>
 <br><b><a href="https://github.com/JordyRdev/payments-executive-powerbi">payments-executive-powerbi</a></b><br>
 <sub>Power BI · DAX · SVG measures · PBIP/TMDL/PBIR · Python</sub><br>
-Executive dashboard for a fictional European payment provider: every micro-chart drawn as SVG by DAX, a built-in data trust page (freshness, reconciliation, completeness, late files), native visuals only, synthetic data.
+Executive dashboard for a fictional European payment provider: every micro-chart drawn as SVG by DAX, a built-in data trust page, native visuals only, synthetic data.
 </td>
-</tr>
-<tr>
 <td width="50%" valign="top">
 <a href="https://github.com/JordyRdev/llm-eval-security-tests"><img src="assets/featured/llm-eval-security-tests.svg" width="100%" alt="llm-eval-security-tests"></a>
 <br><b><a href="https://github.com/JordyRdev/llm-eval-security-tests">llm-eval-security-tests</a></b><br>
 <sub>LLM evals · OWASP · promptfoo · GitHub Actions</sub><br>
 OWASP Top 10 for LLM security tests and answer-quality checks as CI release gates, on an NL-to-SQL chat app with role-based access.
 </td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 <a href="https://github.com/JordyRdev/playwright-typescript-portfolio"><img src="assets/featured/playwright-typescript-portfolio.svg" width="100%" alt="playwright-typescript-portfolio"></a>
 <br><b><a href="https://github.com/JordyRdev/playwright-typescript-portfolio">playwright-typescript-portfolio</a></b><br>
 <sub>Playwright · TypeScript · Zod · CI</sub><br>
 UI and API framework: Page Objects, fixtures, Zod contract tests, 4 browsers, CI with HTML report.
 </td>
-</tr>
-<tr>
 <td width="50%" valign="top">
-<a href="https://github.com/JordyRdev/powerbi-dashboard-playwright"><img src="assets/featured/powerbi-dashboard-playwright.svg" width="100%" alt="powerbi-dashboard-playwright"></a>
+<a href="https://github.com/JordyRdev/powerbi-dashboard-playwright"><img src="assets/featured/powerbi-dashboard-playwright.png" width="100%" alt="powerbi-dashboard-playwright"></a>
 <br><b><a href="https://github.com/JordyRdev/powerbi-dashboard-playwright">powerbi-dashboard-playwright</a></b><br>
 <sub>Playwright · star schema · Power BI · Allure</sub><br>
 Test analytics: every CI run lands in a star schema and a Power BI report shows flaky tests, slowdowns and release-over-release quality.
 </td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 <a href="https://github.com/JordyRdev/hr-analytics-powerbi-demo"><img src="assets/featured/hr-analytics-powerbi-demo.png" width="100%" alt="hr-analytics-powerbi-demo"></a>
 <br><b><a href="https://github.com/JordyRdev/hr-analytics-powerbi-demo">hr-analytics-powerbi-demo</a></b><br>
 <sub>Power BI · DAX · TMDL · pandas</sub><br>
 HR dashboard on synthetic data: multi-source star schema in TMDL, 64 documented DAX measures, data-quality page, 46 KPIs validated against an independent pandas calculation.
+</td>
+<td width="50%" valign="top">
+<a href="https://github.com/JordyRdev?tab=repositories"><img src="assets/featured/more.svg" width="100%" alt="more"></a>
+<br><b><a href="https://github.com/JordyRdev?tab=repositories">All repositories →</a></b><br>
+<sub>Tools, forks and work in progress</sub><br>
+Everything else I build and contribute to, including MCP tooling and open-source test reporting.
 </td>
 </tr>
 </table>

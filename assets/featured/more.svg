@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" font-family="Consolas,'DejaVu Sans Mono',monospace" xml:space="preserve">
+<rect width="800" height="450" rx="14" fill="#161b22"/>
+<path d="M0,14 a14,14 0 0 1 14,-14 h772 a14,14 0 0 1 14,14 v24 h-800 z" fill="#0d1117"/>
+<circle cx="22" cy="19" r="6" fill="#ff5f56"/><circle cx="42" cy="19" r="6" fill="#ffbd2e"/><circle cx="62" cy="19" r="6" fill="#27c93f"/>
+<text x="400.0" y="24" font-size="14" fill="#616e7f" text-anchor="middle">github.com/JordyRdev</text>
+<text x="28" y="80" font-size="21"><tspan fill="#ffa657">$ </tspan><tspan fill="#c9d1d9">ls ~/projects</tspan></text>
+<rect x="28" y="100" width="744" height="1" fill="#30363d"/>
+<text x="28" y="126" font-size="21"><tspan fill="#a5d6ff">  payments-executive-powerbi/</tspan></text>
+<text x="28" y="158" font-size="21"><tspan fill="#a5d6ff">  llm-eval-security-tests/</tspan></text>
+<text x="28" y="190" font-size="21"><tspan fill="#a5d6ff">  playwright-typescript-portfolio/</tspan></text>
+<text x="28" y="222" font-size="21"><tspan fill="#a5d6ff">  powerbi-dashboard-playwright/</tspan></text>
+<text x="28" y="254" font-size="21"><tspan fill="#a5d6ff">  hr-analytics-powerbi-demo/</tspan></text>
+<text x="28" y="286" font-size="21"><tspan fill="#616e7f">  ...</tspan></text>
+<rect x="28" y="306" width="744" height="1" fill="#30363d"/>
+<text x="28" y="332" font-size="21"><tspan fill="#ffa657">  ▶ </tspan><tspan fill="#c9d1d9">View all repositories</tspan></text>
+</svg>
