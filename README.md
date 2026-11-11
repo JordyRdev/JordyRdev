@@ -109,5 +109,3 @@ Everything else I build and contribute to, including MCP tooling and open-source
   <source media="(prefers-color-scheme: light)" srcset="assets/race-light.svg">
   <img alt="Contribution Grand Prix: a retro race car drives through my contribution graph collecting every contribution" src="assets/race-dark.svg" width="100%">
 </picture>
-
-<sub>Card inspired by <a href="https://github.com/Andrew6rant/Andrew6rant">Andrew6rant</a> · regenerated daily by <code>scripts/profile.py</code></sub>
