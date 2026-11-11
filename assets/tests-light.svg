@@ -2,12 +2,12 @@
 <style>
 @font-face{src:local('Consolas'),local('Consolas Bold');font-family:'ConsolasFallback';font-display:swap;-webkit-size-adjust:109%;size-adjust:109%;}
 .text{fill:#24292f;}
-.key{fill:#953800;}
+.key{fill:#e8590c;}
 .value{fill:#0a3069;}
 .dots{fill:#c2cfde;}
 .add{fill:#1a7f37;}
 .dele{fill:#cf222e;}
-.accent{fill:#953800;}
+.accent{fill:#e8590c;}
 </style>
 <rect width="1023px" height="220px" fill="#f6f8fa" rx="15"/>
 <text x="20.0" y="35" class="text"><tspan class="accent">$ run-tests --owner JordyRdev</tspan><tspan class="text">                                                     </tspan><tspan class="dots">2026-11-10 20:39 UTC</tspan></text>
