@@ -3,9 +3,9 @@
   "contributed": 5,
   "repos": 12,
   "stars": 0,
-  "commits": 153,
-  "additions": 192784,
-  "deletions": 21606,
+  "commits": 154,
+  "additions": 192806,
+  "deletions": 21628,
   "tests": [
     {
       "repo": "llm-eval-security-tests",
@@ -29,7 +29,7 @@
       "finished": "2026-10-29T06:33:49Z"
     },
     {
-      "repo": "powerbi-dashboard-playwright",
+      "repo": "powerbi-playwright-dashboard",
       "workflow": "CI",
       "conclusion": "success",
       "seconds": 238,
@@ -37,7 +37,7 @@
     }
   ],
   "calendar": {
-    "total": 253,
+    "total": 254,
     "start": "2025-11-09",
     "weeks": [
       [
@@ -1982,11 +1982,11 @@
         ],
         [
           3,
-          16,
+          17,
           3
         ]
       ]
     ]
   },
-  "updated": "2026-11-11T08:20:43+00:00"
+  "updated": "2026-11-11T08:28:04+00:00"
 }
