@@ -55,27 +55,29 @@ HR dashboard on synthetic data: multi-source star schema in TMDL, 64 documented 
 OWASP Top 10 for LLM security tests and answer-quality checks as CI release gates, on an NL-to-SQL chat app with role-based access.
 </td>
 <td width="50%" valign="top">
+<a href="https://github.com/JordyRdev/llm-redteam-kit"><img src="assets/featured/llm-redteam-kit.png" width="100%" alt="llm-redteam-kit"></a>
+<br><b><a href="https://github.com/JordyRdev/llm-redteam-kit">llm-redteam-kit</a></b><br>
+<sub>TypeScript · OWASP LLM Top 10 2026 · canary tokens · GitHub Actions</sub><br>
+Red-team any chatbot in 5 minutes: 43 OWASP attacks, deterministic canary leak checks, a nightly CI gate and a public report. Ships with a vulnerable and a hardened demo bot.
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
 <a href="https://github.com/JordyRdev/playwright-typescript-portfolio"><img src="assets/featured/playwright-typescript-portfolio.svg" width="100%" alt="playwright-typescript-portfolio"></a>
 <br><b><a href="https://github.com/JordyRdev/playwright-typescript-portfolio">playwright-typescript-portfolio</a></b><br>
 <sub>Playwright · TypeScript · Zod · CI</sub><br>
 UI and API framework: Page Objects, fixtures, Zod contract tests, 4 browsers, CI with HTML report.
 </td>
-</tr>
-<tr>
 <td width="50%" valign="top">
 <a href="https://github.com/JordyRdev/powerbi-playwright-dashboard"><img src="assets/featured/powerbi-playwright-dashboard.png" width="100%" alt="powerbi-playwright-dashboard"></a>
 <br><b><a href="https://github.com/JordyRdev/powerbi-playwright-dashboard">powerbi-playwright-dashboard</a></b><br>
 <sub>Playwright · star schema · Power BI · Allure</sub><br>
 Test analytics: every CI run lands in a star schema and a Power BI report shows flaky tests, slowdowns and release-over-release quality.
 </td>
-<td width="50%" valign="top">
-<a href="https://github.com/JordyRdev?tab=repositories"><img src="assets/featured/more.svg" width="100%" alt="more"></a>
-<br><b><a href="https://github.com/JordyRdev?tab=repositories">All repositories →</a></b><br>
-<sub>Tools, forks and work in progress</sub><br>
-Everything else I build and contribute to, including MCP tooling and open-source test reporting.
-</td>
 </tr>
 </table>
+
+<p align="right"><a href="https://github.com/JordyRdev?tab=repositories"><b>All repositories →</b></a></p>
 
 <details>
 <summary><b>Full tech stack</b></summary>
