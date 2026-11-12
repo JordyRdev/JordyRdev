@@ -78,18 +78,6 @@ def tile(name, title, lines):
 
 
 def tiles():
-    tile("more", "github.com/JordyRdev", [
-        [("$ ", "key"), ("ls ~/projects", "text")],
-        "---",
-        [("  powerbi-executive-dashboard/", "value")],
-        [("  powerbi-hr-analytics-dashboard/", "value")],
-        [("  powerbi-playwright-dashboard/", "value")],
-        [("  llm-eval-security-tests/", "value")],
-        [("  playwright-typescript-portfolio/", "value")],
-        [("  ...", "dim")],
-        "---",
-        [("  ▶ ", "key"), ("View all repositories", "text")],
-    ])
     tile("llm-eval-security-tests", "llm-eval-security-tests · nightly eval on main", [
         [("$ ", "key"), ("eval --live", "text"), ("   # golden questions, reference SQL", "dim")],
         [("  accuracy ............ ", "dim"), ("40/40", "value"), ("   ✓", "ok")],
