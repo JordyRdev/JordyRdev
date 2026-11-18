@@ -28,7 +28,7 @@
 
 ## About me
 
-Data-driven, risk-based QA for financial systems, data migrations and digital transformation, with 15+ years of international experience in fintech, banking, energy and telecom. I bridge data engineering teams and business stakeholders, and I check that systems, data and AI-generated output actually do what they claim.
+15+ years of risk-based QA and data validation in fintech, banking, energy and telecom. I bridge data engineering and the business, and I build what I test: Power BI, Power Platform and automated quality gates for apps, data and AI.
 
 ## Featured work
 
