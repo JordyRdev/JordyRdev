@@ -35,16 +35,30 @@ Data-driven, risk-based QA for financial systems, data migrations and digital tr
 <table>
 <tr>
 <td width="50%" valign="top">
+<a href="https://github.com/JordyRdev/powerplatform-data-issue-desk"><img src="assets/featured/powerplatform-data-issue-desk.png" width="100%" alt="powerplatform-data-issue-desk"></a>
+<br><b><a href="https://github.com/JordyRdev/powerplatform-data-issue-desk">powerplatform-data-issue-desk</a></b><br>
+<sub>Power Apps · Power Automate · Dataverse · Power Fx · GitHub Actions</sub><br>
+Report, approve and escalate data issues: a responsive canvas app, 4 cloud flows with try/catch and a child flow, and ALM that exports to source, runs the Solution Checker and deploys to test.
+</td>
+<td width="50%" valign="top">
 <a href="https://github.com/JordyRdev/powerbi-executive-dashboard"><img src="assets/featured/powerbi-executive-dashboard.png" width="100%" alt="powerbi-executive-dashboard"></a>
 <br><b><a href="https://github.com/JordyRdev/powerbi-executive-dashboard">powerbi-executive-dashboard</a></b><br>
 <sub>Power BI · DAX · SVG measures · PBIP/TMDL/PBIR · Python</sub><br>
 Executive dashboard for a fictional European payment provider: every micro-chart drawn as SVG by DAX, a built-in data trust page, native visuals only, synthetic data.
 </td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 <a href="https://github.com/JordyRdev/powerbi-hr-analytics-dashboard"><img src="assets/featured/powerbi-hr-analytics-dashboard.png" width="100%" alt="powerbi-hr-analytics-dashboard"></a>
 <br><b><a href="https://github.com/JordyRdev/powerbi-hr-analytics-dashboard">powerbi-hr-analytics-dashboard</a></b><br>
 <sub>Power BI · DAX · TMDL · pandas</sub><br>
 HR dashboard on synthetic data: multi-source star schema in TMDL, 64 documented DAX measures, data-quality page, 46 KPIs validated against an independent pandas calculation.
+</td>
+<td width="50%" valign="top">
+<a href="https://github.com/JordyRdev/powerbi-playwright-dashboard"><img src="assets/featured/powerbi-playwright-dashboard.png" width="100%" alt="powerbi-playwright-dashboard"></a>
+<br><b><a href="https://github.com/JordyRdev/powerbi-playwright-dashboard">powerbi-playwright-dashboard</a></b><br>
+<sub>Playwright · star schema · Power BI · Allure</sub><br>
+Test analytics: every CI run lands in a star schema and a Power BI report shows flaky tests, slowdowns and release-over-release quality.
 </td>
 </tr>
 <tr>
@@ -68,12 +82,7 @@ Red-team any chatbot in 5 minutes: 43 OWASP attacks, deterministic canary leak c
 <sub>Playwright · TypeScript · Zod · CI</sub><br>
 UI and API framework: Page Objects, fixtures, Zod contract tests, 4 browsers, CI with HTML report.
 </td>
-<td width="50%" valign="top">
-<a href="https://github.com/JordyRdev/powerbi-playwright-dashboard"><img src="assets/featured/powerbi-playwright-dashboard.png" width="100%" alt="powerbi-playwright-dashboard"></a>
-<br><b><a href="https://github.com/JordyRdev/powerbi-playwright-dashboard">powerbi-playwright-dashboard</a></b><br>
-<sub>Playwright · star schema · Power BI · Allure</sub><br>
-Test analytics: every CI run lands in a star schema and a Power BI report shows flaky tests, slowdowns and release-over-release quality.
-</td>
+<td width="50%" valign="top"></td>
 </tr>
 </table>
 
@@ -87,6 +96,7 @@ Test analytics: every CI run lands in a star schema and a Power BI report shows 
 - **API testing:** Postman, Newman, SoapUI
 - **Performance testing:** JMeter, LoadRunner
 - **CI/CD & tooling:** GitHub Actions, Jenkins, Azure DevOps / Pipelines, Docker, Git
+- **Power Platform:** Power Apps (canvas, Power Fx), Power Automate, Dataverse, solution ALM with GitHub Actions
 - **Data & BI:** SQL (advanced), Python ETL validation, Power BI (advanced DAX, Power Query, row-level security), Tableau, Microsoft Fabric, Azure Data Factory, Azure Synapse
 
 </details>
