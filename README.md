@@ -114,10 +114,10 @@ UI and API framework: Page Objects, fixtures, Zod contract tests, 4 browsers, CI
 **Certifications:** Microsoft Power BI Data Analyst (PL-300) · ISTQB Advanced Level Test Analyst · ISTQB Certified Tester · TMap NEXT
 **Availability:** Freelance / contract · remote · open to relocation
 
-### 🏁 Contribution Grand Prix
+### 🕹️ Contribution Pac-Man
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/race-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/race-light.svg">
-  <img alt="Contribution Grand Prix: a retro race car drives through my contribution graph collecting every contribution" src="assets/race-dark.svg" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JordyRdev/JordyRdev/output/pacman-contribution-graph-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JordyRdev/JordyRdev/output/pacman-contribution-graph.svg">
+  <img alt="Pac-Man eating my contribution graph" src="https://raw.githubusercontent.com/JordyRdev/JordyRdev/output/pacman-contribution-graph.svg" width="100%">
 </picture>
