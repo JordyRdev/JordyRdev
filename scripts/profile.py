@@ -19,7 +19,6 @@ import urllib.request
 from html import escape
 from pathlib import Path
 
-from race import render_race
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
@@ -53,7 +52,7 @@ INFO = [
     ("Email", "jordydev@proton.me"),
     ("GitHub", "JordyRdev"),
     ("LinkedIn", "jordyr86"),
-    ("Status", "Open to work · remote · relocation"),
+    ("Status", "Open to work · remote · hybrid · on-site"),
     None,
     "GitHub Stats",
     "STATS",
@@ -61,8 +60,9 @@ INFO = [
 
 TAGLINES = [
     "Senior QA & Data Quality Consultant",
-    "15+ years experience in BI, data quality, and test automation",
-    "Open to freelance work",
+    "15+ years in QA, data migrations and BI",
+    "Power BI · Power Platform · AI/LLM testing",
+    "Open to freelance: remote, hybrid or on-site",
 ]
 
 BUTTONS = [
@@ -564,7 +564,6 @@ def main():
         (ASSETS / f"card-{theme}.svg").write_text(render_card(theme, stats))
         (ASSETS / f"tests-{theme}.svg").write_text(render_tests(theme, stats))
         (ASSETS / f"typing-{theme}.svg").write_text(render_typing(theme))
-        (ASSETS / f"race-{theme}.svg").write_text(render_race(theme, stats, card_width(), USER))
         for icon, label, _ in BUTTONS:
             (ASSETS / f"btn-{icon}-{theme}.svg").write_text(render_button(theme, icon, label))
     print("rendered", ", ".join(sorted(p.name for p in ASSETS.glob("*.svg"))))

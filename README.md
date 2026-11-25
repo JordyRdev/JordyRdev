@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/typing-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/typing-light.svg">
-  <img alt="Senior QA & Data Quality Consultant · 15+ years experience in BI, data quality, and test automation · Open to freelance work" src="assets/typing-dark.svg" width="100%">
+  <img alt="Senior QA & Data Quality Consultant · 15+ years in QA, data migrations and BI · Power BI, Power Platform and AI/LLM testing · Open to freelance work" src="assets/typing-dark.svg" width="100%">
 </picture>
 
 <a href="https://github.com/JordyRdev">
@@ -112,7 +112,7 @@ UI and API framework: Page Objects, fixtures, Zod contract tests, 4 browsers, CI
 </details>
 
 **Certifications:** Microsoft Power BI Data Analyst (PL-300) · ISTQB Advanced Level Test Analyst · ISTQB Certified Tester · TMap NEXT
-**Availability:** Freelance / contract · remote · open to relocation
+**Availability:** Freelance / contract · remote, hybrid or international on-site
 
 ### 🕹️ Contribution Pac-Man
 
